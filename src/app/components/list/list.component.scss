@@ -1,0 +1,174 @@
+@use "../../../scss/colors" as colors;
+/* general classes */
+.dark-m-bg-items {
+  background-color: colors.$clr-dark-m-600;
+}
+
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.centered-items {
+  display: flex;
+  align-items: center;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  appearance: none;
+  border: 1px solid colors.$clr-dark-m-500;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.3s border, 0.3s transform;
+}
+
+input[type="checkbox"]:checked {
+  background-image: colors.$clr-gradient-primary;
+}
+
+input[type="checkbox"]:checked::before {
+  content: "";
+  position: absolute;
+  width: 1rem;
+  height: 1rem;
+  background-image: url("../../../assets/images/icon-check.svg");
+  background-repeat: no-repeat;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+input[type="checkbox"]:hover {
+  border: 1px solid colors.$clr-primary-200;
+  transform: scale(1.1);
+}
+
+button {
+  cursor: pointer;
+}
+
+/* component styles */
+
+section {
+  display: flex;
+  justify-content: center;
+
+  .input-and-tasks {
+    width: 100%;
+    margin-top: 1rem;
+    display: grid;
+    gap: 2rem;
+    margin-inline: 2rem;
+
+    .add-task {
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+
+      input[type="text"] {
+        width: 100%;
+        font-size: 1.5rem;
+        color: colors.$clr-dark-m-200;
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+      }
+      input[type="text"]::placeholder {
+        color: colors.$clr-dark-m-200;
+        font-size: 1.25rem;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      color: colors.$clr-dark-m-200;
+      font-size: 1.25rem;
+      border-radius: 0.5rem;
+
+      li {
+        padding: 1.5rem;
+        border-bottom: 1px solid colors.$clr-dark-m-400;
+
+        label {
+          display: flex;
+          align-items: flex-end;
+          gap: 1rem;
+          cursor: pointer;
+        }
+
+        button {
+          background-color: transparent;
+          border: none;
+          transition: 0.2s transform;
+        }
+        button:hover {
+          transform: scale(1.2);
+        }
+      }
+      .list-counter {
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem;
+        color: colors.$clr-dark-m-400;
+
+        button {
+          background-color: transparent;
+          border: none;
+          color: colors.$clr-dark-m-400;
+          transition: 0.3s color;
+        }
+
+        button:hover {
+          color: colors.$clr-dark-m-200;
+        }
+      }
+    }
+
+    .list-toggle {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+
+      input[type="radio"] {
+        position: absolute;
+        height: 1px;
+        border: none;
+      }
+
+      label {
+        color: colors.$clr-dark-m-200;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: 0.3s color;
+      }
+
+      input[type="radio"]:checked + label {
+        color: colors.$clr-primary-300;
+      }
+    }
+
+    .drop-place {
+      border: 1px solid white;
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0 6rem 0;
+      color: colors.$clr-dark-m-400;
+    }
+  }
+}
+
+/* desktop */
+@media (min-width: 992px) {
+  section .input-and-tasks {
+    justify-content: center;
+  }
+
+  section .input-and-tasks > * {
+    width: 38vw;
+  }
+}

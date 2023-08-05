@@ -1,0 +1,19 @@
+/* primary colors */
+$clr-primary-100: hsl(192, 100%, 67%);
+$clr-primary-200: hsl(280, 87%, 65%);
+$clr-primary-300: hsl(220, 98%, 61%);
+
+$clr-gradient-primary: linear-gradient(
+  330deg,
+  hsl(280, 87%, 65%) 10%,
+  hsl(220, 98%, 61%) 58%
+);
+
+/* darkMode */
+$clr-dark-m-100: hsl(236, 33%, 92%); /* hover */
+$clr-dark-m-200: hsl(234, 39%, 85%);
+$clr-dark-m-300: rgb(119, 122, 146);
+$clr-dark-m-400: hsl(233, 14%, 35%);
+$clr-dark-m-500: hsl(237, 14%, 26%);
+$clr-dark-m-600: hsl(235, 24%, 19%);
+$clr-dark-m-700: hsl(235, 21%, 11%);

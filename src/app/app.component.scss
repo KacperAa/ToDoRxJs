@@ -1,0 +1,11 @@
+@use "../scss/colors" as colors;
+
+:host {
+  min-height: 100vh;
+  display: block;
+}
+
+main {
+  min-height: 100vh;
+  background-color: colors.$clr-dark-m-700;
+}

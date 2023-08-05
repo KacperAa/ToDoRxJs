@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+@use "./scss/reset" as *;
+@use "./scss/fonts" as fonts;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: fonts.$ff-body;
+  font-size: fonts.$fs-body;
+}
