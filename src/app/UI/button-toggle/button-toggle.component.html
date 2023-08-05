@@ -1,0 +1,12 @@
+<div class="buttons-toggle">
+  <ng-container *ngFor="let button of buttonsToggle">
+    <input
+      type="radio"
+      [id]="button.buttonId"
+      [name]="button?.name"
+      [value]="button.value"
+      [checked]="checkedDefault(button)"
+    />
+    <label [for]="button.buttonId">{{ button.text }}</label>
+  </ng-container>
+</div>

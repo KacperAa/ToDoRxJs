@@ -1,0 +1,26 @@
+@use "../../../../scss/colors" as colors;
+/* general classes */
+
+ul {
+  list-style-type: none;
+  color: colors.$clr-dark-m-200;
+  font-size: 1.25rem;
+  border-radius: 0.5rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid colors.$clr-dark-m-400;
+
+    button {
+      background-color: transparent;
+      border: none;
+      transition: 0.2s transform;
+    }
+
+    button:hover {
+      transform: scale(1.2);
+    }
+  }
+}

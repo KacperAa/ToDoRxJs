@@ -5,9 +5,19 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListComponent } from './components/list/list.component';
 import { HeroComponent } from './components/list/hero/hero.component';
+import { ButtonToggleComponent } from './UI/button-toggle/button-toggle.component';
+import { TasksListComponent } from './UI/button-toggle/tasks-list/tasks-list.component';
+import { CheckboxComponent } from './UI/button-toggle/checkbox/checkbox.component';
 
 @NgModule({
-  declarations: [AppComponent, ListComponent, HeroComponent],
+  declarations: [
+    AppComponent,
+    ListComponent,
+    HeroComponent,
+    ButtonToggleComponent,
+    TasksListComponent,
+    CheckboxComponent,
+  ],
   imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent],

@@ -1,0 +1,8 @@
+<ul>
+  <li *ngFor="let listEl of list.listItems">
+    <ui-checkbox [text]="listEl.text"></ui-checkbox>
+    <button>
+      <img [src]="list.icon" [alt]="list.alt" />
+    </button>
+  </li>
+</ul>

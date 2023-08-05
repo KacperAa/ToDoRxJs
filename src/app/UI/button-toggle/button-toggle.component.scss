@@ -1,0 +1,26 @@
+@use "../../../scss/colors" as colors;
+.buttons-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  background-color: colors.$clr-dark-m-600;
+  border-radius: 0.5rem;
+
+  input[type="radio"] {
+    position: absolute;
+    height: 1px;
+    border: none;
+  }
+
+  label {
+    color: colors.$clr-dark-m-200;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s color;
+  }
+
+  input[type="radio"]:checked + label {
+    color: colors.$clr-primary-300;
+  }
+}
