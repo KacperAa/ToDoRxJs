@@ -2,6 +2,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -11,8 +12,6 @@ import { Subscription, fromEvent } from 'rxjs';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
-import { Task } from 'src/app/models/task.interface';
-import { ApplicationModeService } from 'src/app/services/application-mode.service';
 
 @Component({
   selector: 'app-list',
@@ -21,6 +20,8 @@ import { ApplicationModeService } from 'src/app/services/application-mode.servic
 })
 export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('drag') drag!: ElementRef;
+  @Input({ required: false })
+  public isLightMode!: boolean;
   public isSmallDevice!: boolean;
   public buttonsToggle: ButtonToggle[] = [
     {
@@ -59,29 +60,20 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
     ],
   };
 
-  public isLightMode!: boolean;
-
   private _sub = new Subscription();
 
   constructor(
     private viewportRuler: ViewportRuler,
-    private tasksService: TasksService,
-    private modeService: ApplicationModeService
+    private tasksService: TasksService
   ) {}
 
   public ngOnInit(): void {
     this.isSmallDevice = this._getScreenSize();
     this._sub.add(this._trackWindowWidth());
     this.dragAndDrop();
-    this.getMode();
   }
 
-  public ngAfterViewInit(): void {
-    /*     const obsDrag$ = fromEvent(this.drag.nativeElement, 'drag');
-    obsDrag$.subscribe(() => {
-      this.drag.nativeElement.style.backgroundColor = 'red';
-    }); */
-  }
+  public ngAfterViewInit(): void {}
 
   public ngOnDestroy(): void {
     this._sub.unsubscribe();
@@ -114,12 +106,6 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
       };
 
       this.tasksService.addTask(listItem).subscribe(); */
-    });
-  }
-
-  public getMode(): void {
-    this.modeService.getMode().subscribe((lightmode: boolean) => {
-      this.isLightMode = lightmode;
     });
   }
 }

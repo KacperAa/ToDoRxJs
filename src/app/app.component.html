@@ -1,4 +1,7 @@
 <main>
-  <app-hero></app-hero>
-  <app-list></app-list>
+  <app-hero
+    [isLightMode]="isLightmode"
+    (emitClick)="changeAppMode()"
+  ></app-hero>
+  <app-list [isLightMode]="isLightmode"></app-list>
 </main>

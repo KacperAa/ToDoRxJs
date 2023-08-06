@@ -1,27 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { ApplicationModeService } from 'src/app/services/application-mode.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-hero',
   templateUrl: './hero.component.html',
   styleUrls: ['./hero.component.scss'],
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent {
+  @Input({ required: false })
   public isLightMode!: boolean;
-
-  constructor(private modeService: ApplicationModeService) {}
-
-  public ngOnInit(): void {
-    this.getMode();
-  }
-
-  public getMode(): void {
-    this.modeService.getMode().subscribe((lightmode: boolean) => {
-      this.isLightMode = lightmode;
-    });
-  }
-
-  public changeMode(): void {
-    this.modeService.patchMode(!this.isLightMode).subscribe();
-  }
+  @Output()
+  public emitClick = new EventEmitter<never>();
 }
