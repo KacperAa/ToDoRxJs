@@ -51,13 +51,14 @@ section {
     }
 
     .list-and-counter {
-      background-color: colors.$clr-dark-m-600;
+      border-radius: 0.5rem;
+      overflow: auto;
 
       .list-counter {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 0 1.5rem;
+        padding: 1.5rem;
         font-size: 1.5rem;
         color: colors.$clr-dark-m-400;
 
@@ -84,5 +85,9 @@ section {
 
   section .input-and-tasks > * {
     width: 38vw;
+  }
+
+  .list-counter {
+    padding: 0 1.5rem !important;
   }
 }

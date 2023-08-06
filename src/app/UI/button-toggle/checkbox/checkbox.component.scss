@@ -3,6 +3,7 @@ label {
   display: flex;
   align-items: flex-end;
   gap: 1rem;
+  cursor: pointer;
 
   input[type="checkbox"] {
     position: relative;

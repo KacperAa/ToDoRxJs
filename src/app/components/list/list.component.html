@@ -10,7 +10,7 @@
         id="todoInput"
       />
     </div>
-    <div class="list-and-counter">
+    <div class="list-and-counter | dark-m-bg-items">
       <ui-list [list]="listData"></ui-list>
       <div class="list-counter | dark-m-bg-items">
         <span>5 items left</span>
@@ -21,7 +21,6 @@
         <button>Clear Completed</button>
       </div>
     </div>
-    <!--     </ul> -->
     <ui-button-toggle
       *ngIf="isSmallDevice"
       [buttonsToggle]="buttonsToggle"

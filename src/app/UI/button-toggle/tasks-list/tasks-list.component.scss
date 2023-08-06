@@ -5,7 +5,6 @@ ul {
   list-style-type: none;
   color: colors.$clr-dark-m-200;
   font-size: 1.25rem;
-  border-radius: 0.5rem;
 
   li {
     display: flex;
@@ -16,6 +15,7 @@ ul {
     button {
       background-color: transparent;
       border: none;
+      cursor: pointer;
       transition: 0.2s transform;
     }
 
