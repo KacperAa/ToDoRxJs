@@ -1,7 +1,7 @@
 <section class="container" [ngClass]="isLightMode ? 'light-mode' : null">
   <div>
     <h1>todo</h1>
-    <button (click)="emitClick.emit()">
+    <button #btnChange>
       <img src="../../../../assets/images/icon-sun.svg" alt="light mode icon" />
     </button>
   </div>

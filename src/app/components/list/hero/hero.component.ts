@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 
 @Component({
   selector: 'app-hero',
@@ -6,8 +13,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./hero.component.scss'],
 })
 export class HeroComponent {
+  @ViewChild('btnChangeMode') btnChange!: ElementRef;
   @Input({ required: false })
   public isLightMode!: boolean;
   @Output()
-  public emitClick = new EventEmitter<never>();
+  public btnChangeModeEmitter = new EventEmitter<ElementRef>();
+
+  public ngAfterViewInit() {
+    this.btnChangeModeEmitter.emit(this.btnChange);
+  }
 }
