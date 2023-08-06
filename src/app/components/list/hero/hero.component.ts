@@ -20,4 +20,8 @@ export class HeroComponent implements OnInit {
       this.isLightMode = lightmode;
     });
   }
+
+  public changeMode(): void {
+    this.modeService.patchMode(!this.isLightMode).subscribe();
+  }
 }

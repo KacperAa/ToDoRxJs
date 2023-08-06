@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Mode } from '../models/mode.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApplicationModeService {
+  public lightmode$ = new Subject<boolean>();
   private _url = 'https://todo-18d0c-default-rtdb.firebaseio.com/mode.json';
 
   constructor(private http: HttpClient) {}
@@ -19,7 +20,7 @@ export class ApplicationModeService {
     );
   }
 
-  public patchMode() {
-    this.http.patch(this._url, true);
+  public patchMode(value: boolean) {
+    return this.http.patch(this._url, { lightmode: value });
   }
 }
