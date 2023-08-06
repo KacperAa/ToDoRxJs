@@ -1,4 +1,8 @@
 <label>
-  <input type="checkbox" />
+  <input
+    (change)="changeCheckbox($event)"
+    type="checkbox"
+    [checked]="isChecked"
+  />
   {{ text }}
 </label>

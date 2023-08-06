@@ -9,4 +9,6 @@ import { List } from 'src/app/models/list-item.interface';
 export class TasksListComponent {
   @Input()
   public list!: List;
+
+  test(checked: boolean) {}
 }

@@ -1,6 +1,9 @@
 <ul>
   <li *ngFor="let listEl of list.listItems">
-    <ui-checkbox [text]="listEl.text"></ui-checkbox>
+    <ui-checkbox
+      (emitChecked)="test($event)"
+      [text]="listEl.text"
+    ></ui-checkbox>
     <button>
       <img [src]="list.icon" [alt]="list.alt" />
     </button>

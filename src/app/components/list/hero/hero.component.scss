@@ -1,6 +1,6 @@
 @use "../../../../scss/fonts" as fonts;
 
-section {
+.container {
   position: relative;
   z-index: 1;
   min-height: 20rem;
@@ -45,11 +45,32 @@ section::before {
   background-size: cover;
 }
 
+/* tablet > */
+
+@media (min-width: 768px) {
+  .container::before {
+    background-image: url("../../../../assets/images/bg-desktop-dark.jpg");
+  }
+}
+
 /* desktop */
+
 @media (min-width: 992px) {
-  section div {
+  .container div {
     display: flex;
     justify-content: space-evenly;
     padding-block: 4.5rem;
+  }
+}
+
+/* light mode */
+
+.light-mode::before {
+  background-image: url("../../../../assets/images/bg-mobile-light.jpg");
+}
+
+@media (min-width: 768px) {
+  .light-mode::before {
+    background-image: url("../../../../assets/images/bg-desktop-light.jpg");
   }
 }

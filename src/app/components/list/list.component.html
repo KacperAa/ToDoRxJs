@@ -1,6 +1,11 @@
 <section>
   <div class="input-and-tasks">
-    <div class="add-task | dark-m-bg-items" draggable="true">
+    <div
+      #drag
+      class="add-task | dark-m-bg-items"
+      [ngClass]="isLightMode ? 'add-task-light-m' : null"
+      draggable="true"
+    >
       <ui-checkbox></ui-checkbox>
       <input
         class="dark-m-bg-items"
@@ -12,7 +17,7 @@
     </div>
     <div class="list-and-counter | dark-m-bg-items">
       <ui-list [list]="listData"></ui-list>
-      <div class="list-counter | dark-m-bg-items">
+      <div class="list-counter">
         <span>5 items left</span>
         <ui-button-toggle
           *ngIf="!isSmallDevice"

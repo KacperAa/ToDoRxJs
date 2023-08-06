@@ -8,6 +8,7 @@ import { HeroComponent } from './components/list/hero/hero.component';
 import { ButtonToggleComponent } from './UI/button-toggle/button-toggle.component';
 import { TasksListComponent } from './UI/button-toggle/tasks-list/tasks-list.component';
 import { CheckboxComponent } from './UI/button-toggle/checkbox/checkbox.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,12 @@ import { CheckboxComponent } from './UI/button-toggle/checkbox/checkbox.componen
     TasksListComponent,
     CheckboxComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
