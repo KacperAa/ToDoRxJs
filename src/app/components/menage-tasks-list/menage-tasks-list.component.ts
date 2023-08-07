@@ -14,11 +14,13 @@ import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss'],
+  selector: 'app-menage-tasks-list',
+  templateUrl: './menage-tasks-list.component.html',
+  styleUrls: ['./menage-tasks-list.component.scss'],
 })
-export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class MenageTasksListComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   @ViewChild('drag') drag!: ElementRef;
   @Input({ required: false })
   public isLightMode!: boolean;
