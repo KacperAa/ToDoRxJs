@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Observable, delayWhen, map, retryWhen, take, tap, timer } from 'rxjs';
 import { Mode } from '../models/mode.interface';
 
 @Injectable({
@@ -15,6 +15,13 @@ export class ApplicationModeService {
     return this.http.get<Mode>(this._url).pipe(
       map((mode: Mode) => {
         return mode.lightmode;
+      }),
+      retryWhen((error: Observable<Error>) => {
+        return error.pipe(
+          delayWhen(() => timer(2000)),
+          take(4),
+          tap(() => console.log('retrying...'))
+        );
       })
     );
   }

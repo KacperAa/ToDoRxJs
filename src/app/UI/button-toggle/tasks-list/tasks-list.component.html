@@ -1,5 +1,8 @@
 <ul>
-  <li *ngFor="let listEl of list.listItems">
+  <li
+    *ngFor="let listEl of list.listItems"
+    [ngClass]="isLightMode ? 'light-m-list-item' : null"
+  >
     <ui-checkbox
       (emitChecked)="test($event)"
       [text]="listEl.text"

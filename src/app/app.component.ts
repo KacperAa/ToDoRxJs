@@ -41,8 +41,10 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public getAppMode(): void {
-    this.modeService.getMode().subscribe((lightmode: boolean) => {
-      this.isLightmode = lightmode;
+    this.modeService.getMode().subscribe({
+      next: (lightmode: boolean) => {
+        this.isLightmode = lightmode;
+      },
     });
   }
 }

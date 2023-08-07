@@ -7,8 +7,10 @@ import { List } from 'src/app/models/list-item.interface';
   styleUrls: ['./tasks-list.component.scss'],
 })
 export class TasksListComponent {
-  @Input()
+  @Input({ required: true })
   public list!: List;
+  @Input()
+  public isLightMode!: boolean;
 
   test(checked: boolean) {}
 }

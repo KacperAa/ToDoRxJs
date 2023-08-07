@@ -24,3 +24,18 @@
     color: colors.$clr-primary-300;
   }
 }
+
+/* lightmode */
+.bg-clr-light-m-100 {
+  background-color: colors.$clr-light-m-100 !important;
+}
+
+.box-sh-light-m {
+  box-shadow: 0 0 15px colors.$clr-light-m-200;
+}
+
+@media (min-width: 992px) {
+  .box-sh-light-m {
+    box-shadow: none;
+  }
+}

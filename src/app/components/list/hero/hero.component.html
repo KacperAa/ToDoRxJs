@@ -1,8 +1,17 @@
 <section class="container" [ngClass]="isLightMode ? 'light-mode' : null">
   <div>
     <h1>todo</h1>
-    <button #btnChange>
-      <img src="../../../../assets/images/icon-sun.svg" alt="light mode icon" />
+    <button #btnChangeMode>
+      <img
+        *ngIf="!isLightMode"
+        src="../../../../assets/images/icon-sun.svg"
+        alt="light mode icon"
+      />
+      <img
+        *ngIf="isLightMode"
+        src="../../../../assets/images/icon-moon.svg"
+        alt="dark mode icon"
+      />
     </button>
   </div>
 </section>

@@ -1,4 +1,7 @@
-<div class="buttons-toggle">
+<div
+  class="buttons-toggle"
+  [ngClass]="isLightMode ? ['box-sh-light-m', 'bg-clr-light-m-100'] : null"
+>
   <ng-container *ngFor="let button of buttonsToggle">
     <input
       type="radio"

@@ -3,35 +3,56 @@
     <div
       #drag
       class="add-task | dark-m-bg-items"
-      [ngClass]="isLightMode ? 'add-task-light-m' : null"
+      [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null"
       draggable="true"
     >
       <ui-checkbox></ui-checkbox>
       <input
         class="dark-m-bg-items"
+        [ngClass]="
+          isLightMode
+            ? ['light-m-bg-clr-100', 'light-m-input', 'light-m-clr-600']
+            : null
+        "
         type="text"
         placeholder="Create a new todo..."
         name="addTask"
         id="todoInput"
       />
     </div>
-    <div class="list-and-counter | dark-m-bg-items">
-      <ui-list [list]="listData"></ui-list>
-      <div class="list-counter">
+    <div
+      class="list-and-counter | dark-m-bg-items"
+      [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m '] : null"
+    >
+      <ui-list [isLightMode]="isLightMode" [list]="listData"></ui-list>
+      <div
+        class="list-counter"
+        [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
+      >
         <span>5 items left</span>
         <ui-button-toggle
           *ngIf="!isSmallDevice"
+          [isLightMode]="isLightMode"
           [buttonsToggle]="buttonsToggle"
         ></ui-button-toggle>
-        <button>Clear Completed</button>
+        <button [ngClass]="isLightMode ? 'light-m-clr-400' : null">
+          Clear Completed
+        </button>
       </div>
     </div>
     <ui-button-toggle
       *ngIf="isSmallDevice"
+      [isLightMode]="isLightMode"
       [buttonsToggle]="buttonsToggle"
     ></ui-button-toggle>
     <div>
-      <p class="drop-place" id="dropPlace">Drag and drop to reorder list</p>
+      <p
+        class="drop-place"
+        [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+        id="dropPlace"
+      >
+        Drag and drop to reorder list
+      </p>
     </div>
   </div>
 </section>

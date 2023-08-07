@@ -9,6 +9,8 @@ import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 export class ButtonToggleComponent {
   @Input({ required: true })
   public buttonsToggle!: ButtonToggle[];
+  @Input()
+  public isLightMode!: boolean;
 
   public checkedDefault(button: ButtonToggle): boolean {
     return this.buttonsToggle.indexOf(button) === 0 ? true : false;

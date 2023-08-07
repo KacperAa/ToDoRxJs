@@ -37,7 +37,7 @@ section {
         padding: 0.5rem;
       }
       input[type="text"]::placeholder {
-        color: colors.$clr-dark-m-200;
+        color: colors.$clr-dark-m-400;
         font-size: 1.25rem;
       }
     }
@@ -93,6 +93,22 @@ section {
 }
 
 /* lightmode */
-.add-task-light-m {
-  background-color: white;
+.light-m-bg-clr-100 {
+  background-color: colors.$clr-light-m-100;
+}
+
+.light-m-input::placeholder {
+  color: colors.$clr-light-m-400 !important;
+}
+
+.light-m-clr-400 {
+  color: colors.$clr-light-m-400 !important;
+}
+
+.light-m-clr-600 {
+  color: colors.$clr-light-m-600 !important;
+}
+
+.box-sh-light-m {
+  box-shadow: 0 0 15px colors.$clr-light-m-200;
 }

@@ -24,3 +24,11 @@ ul {
     }
   }
 }
+
+/* lightmode */
+
+.light-m-list-item {
+  color: colors.$clr-light-m-600;
+  border-bottom: 1px solid colors.$clr-light-m-300 !important;
+  font-weight: 700;
+}

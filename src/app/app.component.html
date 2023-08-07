@@ -1,4 +1,4 @@
-<main>
+<main [ngClass]="isLightmode ? 'light-m-bg-clr' : null">
   <app-hero
     [isLightMode]="isLightmode"
     (btnChangeModeEmitter)="btnChangeMode = $event"
