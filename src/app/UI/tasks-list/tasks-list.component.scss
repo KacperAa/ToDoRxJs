@@ -25,8 +25,10 @@ ul {
   }
 
   .hint {
-    border: 1px solid #ffc49a;
-    background: #feffb4;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    opacity: 0.5;
   }
 
   .active {

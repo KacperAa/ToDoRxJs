@@ -22,7 +22,6 @@ export class TasksListComponent implements AfterViewInit {
     // (A) SET CSS + GET ALL LIST ITEMS
     const target = document.getElementById('sortList');
 
-    target?.classList.add('slist');
     let items: any = target?.getElementsByTagName('li');
     let current: HTMLLIElement | null = null;
 
