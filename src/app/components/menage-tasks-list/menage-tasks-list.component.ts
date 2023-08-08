@@ -8,7 +8,14 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Subscription, exhaustMap, fromEvent, interval } from 'rxjs';
+import {
+  Subscription,
+  exhaustMap,
+  filter,
+  finalize,
+  fromEvent,
+  interval,
+} from 'rxjs';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
@@ -23,9 +30,9 @@ import { NgForm, NgModel } from '@angular/forms';
 export class MenageTasksListComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  /*   @ViewChild('form') form!: ElementRef;
-  @ViewChild('inputControl') input!: ElementRef;
-  @ViewChild('dupa') addTaskBtn!: ElementRef; */
+  @ViewChild('form') form!: NgForm;
+  @ViewChild('inputControl') input!: NgModel;
+  @ViewChild('btn') addTaskBtn!: ElementRef;
   @Input({ required: false })
   public isLightMode!: boolean;
   public isSmallDevice!: boolean;
@@ -57,7 +64,6 @@ export class MenageTasksListComponent
   };
 
   public task: Partial<Task> = {};
-
   private _sub = new Subscription();
 
   constructor(
@@ -71,31 +77,39 @@ export class MenageTasksListComponent
     this.getTasks();
   }
 
-  public ngAfterViewInit(): void {}
+  public ngAfterViewInit(): void {
+    this.addTask();
+  }
 
   public ngOnDestroy(): void {
     this._sub.unsubscribe();
   }
 
-  public addTask(input: NgModel, form: NgForm): void {
-    this._setErrMess(input);
+  public addTask(): void {
+    const obsBtn$ = fromEvent(this.addTaskBtn.nativeElement, 'click');
 
-    if (input.valid) {
-      this.task.completed = false;
-      this.tasksService.addTask(this.task as Task).subscribe(() => {
-        form.resetForm();
+    obsBtn$
+      .pipe(
+        filter(() => this.input.valid as boolean),
+        exhaustMap(() => {
+          this.task.completed = false;
+          return this.tasksService.addTask(this.task as Task);
+        })
+      )
+      .subscribe(() => {
+        this.form.resetForm();
         this.getTasks();
       });
-    }
   }
 
   public getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
   }
 
-  private _setErrMess(input: NgModel): void {
+  private _setErrMess(): void {
+    console.log('dupA');
     const inputEl = document.getElementById('todoInput') as HTMLInputElement;
-    if (input.errors?.['required']) {
+    if (this.input.errors?.['required']) {
       inputEl.placeholder = 'Field is required...';
     } else {
       inputEl.placeholder = 'Create a new todo...';

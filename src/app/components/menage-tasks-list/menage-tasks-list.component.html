@@ -2,7 +2,6 @@
   <div class="input-and-tasks">
     <form
       #form="ngForm"
-      (ngSubmit)="addTask(inputControl, form)"
       class="add-task | dark-m-bg-items"
       [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null"
     >
@@ -23,7 +22,7 @@
         id="todoInput"
         [required]="true"
       />
-      <button type="submit">Add</button>
+      <button #btn type="submit">Add</button>
     </form>
     <div
       class="list-and-counter | dark-m-bg-items"
