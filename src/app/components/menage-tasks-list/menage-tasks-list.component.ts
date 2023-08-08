@@ -9,12 +9,12 @@ import {
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import {
+  Observable,
   Subscription,
   exhaustMap,
   filter,
-  finalize,
   fromEvent,
-  interval,
+  map,
 } from 'rxjs';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 import { List } from 'src/app/models/list-item.interface';
@@ -74,7 +74,7 @@ export class MenageTasksListComponent
   public ngOnInit(): void {
     this.isSmallDevice = this._getScreenSize();
     this._sub.add(this._trackWindowWidth());
-    this.getTasks();
+    this._getTasks();
   }
 
   public ngAfterViewInit(): void {
@@ -86,10 +86,14 @@ export class MenageTasksListComponent
   }
 
   public addTask(): void {
-    const obsBtn$ = fromEvent(this.addTaskBtn.nativeElement, 'click');
+    const obsBtn$: Observable<MouseEvent> = fromEvent(
+      this.addTaskBtn.nativeElement,
+      'click'
+    );
 
     obsBtn$
       .pipe(
+        map(() => this._setErrMess()),
         filter(() => this.input.valid as boolean),
         exhaustMap(() => {
           this.task.completed = false;
@@ -98,16 +102,15 @@ export class MenageTasksListComponent
       )
       .subscribe(() => {
         this.form.resetForm();
-        this.getTasks();
+        this._getTasks();
       });
   }
 
-  public getTasks(): void {
+  private _getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
   }
 
   private _setErrMess(): void {
-    console.log('dupA');
     const inputEl = document.getElementById('todoInput') as HTMLInputElement;
     if (this.input.errors?.['required']) {
       inputEl.placeholder = 'Field is required...';
