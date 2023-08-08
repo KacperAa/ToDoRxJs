@@ -54,22 +54,21 @@ export class TasksListComponent implements AfterViewInit {
 
       li.ondrop = (movedLi: DragEvent) => {
         movedLi.preventDefault();
-        if (li !== selectedLi) {
-          let actualPos = 0;
-          let droppedPos = 0;
-          for (let i = 0; i < liCollection.length; i++) {
-            if (selectedLi === liCollection[i]) {
-              actualPos = li;
-            }
-            if (li === liCollection[i]) {
-              droppedPos = li;
-            }
+        let actualPos = 0;
+        let droppedPos = 0;
+
+        for (let i = 0; i < liCollection.length; i++) {
+          if (selectedLi === liCollection[i]) {
+            actualPos = i;
           }
-          if (actualPos < droppedPos) {
-            li.parentNode.insertBefore(selectedLi, li.nextSibling);
-          } else {
-            li.parentNode.insertBefore(selectedLi, li);
+          if (li === liCollection[i]) {
+            droppedPos = i;
           }
+        }
+        if (actualPos < droppedPos) {
+          li.parentNode.insertBefore(selectedLi, li.nextSibling);
+        } else {
+          li.parentNode.insertBefore(selectedLi, li);
         }
       };
     }
