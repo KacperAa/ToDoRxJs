@@ -9,6 +9,7 @@ import { ButtonToggleComponent } from './UI/button-toggle/button-toggle.componen
 import { TasksListComponent } from './UI/tasks-list/tasks-list.component';
 import { CheckboxComponent } from './UI/checkbox/checkbox.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

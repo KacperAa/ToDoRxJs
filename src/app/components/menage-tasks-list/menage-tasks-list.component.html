@@ -1,23 +1,30 @@
 <section>
   <div class="input-and-tasks">
-    <div
+    <form
+      #form="ngForm"
+      (ngSubmit)="addTask(inputControl, form)"
       class="add-task | dark-m-bg-items"
       [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null"
     >
-      <ui-checkbox></ui-checkbox>
+      <ui-checkbox (emitChecked)="task.active = $event"></ui-checkbox>
       <input
+        #inputControl="ngModel"
+        [(ngModel)]="task.text"
         class="dark-m-bg-items"
-        [ngClass]="
-          isLightMode
-            ? ['light-m-bg-clr-100', 'light-m-input', 'light-m-clr-600']
-            : null
-        "
+        [ngClass]="{
+          'light-m-bg-clr-100': isLightMode,
+          'light-m-input': isLightMode,
+          'light-m-clr-600': isLightMode,
+          'invalid-input': form.invalid && form.submitted
+        }"
         type="text"
         placeholder="Create a new todo..."
         name="addTask"
         id="todoInput"
+        [required]="true"
       />
-    </div>
+      <button type="submit">Add</button>
+    </form>
     <div
       class="list-and-counter | dark-m-bg-items"
       [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m '] : null"

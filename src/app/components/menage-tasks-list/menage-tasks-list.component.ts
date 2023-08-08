@@ -8,10 +8,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Subscription, fromEvent } from 'rxjs';
+import { Subscription, fromEvent, interval } from 'rxjs';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
+import { Task } from 'src/app/models/task.interface';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-menage-tasks-list',
@@ -22,6 +24,7 @@ export class MenageTasksListComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
   @ViewChild('drag') drag!: ElementRef;
+  @ViewChild('input') addTaskInput!: ElementRef;
   @Input({ required: false })
   public isLightMode!: boolean;
   public isSmallDevice!: boolean;
@@ -62,6 +65,8 @@ export class MenageTasksListComponent
     ],
   };
 
+  public task: Partial<Task> = {};
+
   private _sub = new Subscription();
 
   constructor(
@@ -78,6 +83,26 @@ export class MenageTasksListComponent
 
   public ngOnDestroy(): void {
     this._sub.unsubscribe();
+  }
+
+  public addTask(input: NgModel, form: NgForm): void {
+    this._setErrMess(input);
+
+    if (input.valid) {
+      this.task.completed = false;
+      this.tasksService.addTask(this.task as Task).subscribe(() => {
+        form.resetForm();
+      });
+    }
+  }
+
+  private _setErrMess(input: NgModel): void {
+    const inputEl = document.getElementById('todoInput') as HTMLInputElement;
+    if (input.errors?.['required']) {
+      inputEl.placeholder = 'Field is required...';
+    } else {
+      inputEl.placeholder = 'Create a new todo...';
+    }
   }
 
   private _trackWindowWidth() {
