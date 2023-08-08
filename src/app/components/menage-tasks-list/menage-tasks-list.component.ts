@@ -21,6 +21,7 @@ import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 import { Task } from 'src/app/models/task.interface';
 import { NgForm, NgModel } from '@angular/forms';
+import { BUTTONS_TOGGLE } from 'src/app/CONST/BUTTON_TOGGLE';
 
 @Component({
   selector: 'app-menage-tasks-list',
@@ -36,26 +37,7 @@ export class MenageTasksListComponent
   @Input({ required: false })
   public isLightMode!: boolean;
   public isSmallDevice!: boolean;
-  public buttonsToggle: ButtonToggle[] = [
-    {
-      buttonId: 'radioOne',
-      name: 'switch-one',
-      value: 'all',
-      text: 'All',
-    },
-    {
-      buttonId: 'radioTwo',
-      name: 'switch-one',
-      value: 'active',
-      text: 'Active',
-    },
-    {
-      buttonId: 'radioThree',
-      name: 'switch-one',
-      value: 'completed',
-      text: 'Completed',
-    },
-  ];
+  public buttonsToggle: ButtonToggle[] = BUTTONS_TOGGLE;
 
   public listData: List = {
     icon: '../../../assets/images/icon-cross.svg',
