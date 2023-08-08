@@ -72,7 +72,6 @@ export class MenageTasksListComponent
   public ngOnInit(): void {
     this.isSmallDevice = this._getScreenSize();
     this._sub.add(this._trackWindowWidth());
-    this.dragAndDrop();
   }
 
   public ngAfterViewInit(): void {}
@@ -91,23 +90,5 @@ export class MenageTasksListComponent
   private _getScreenSize(): boolean {
     const screenWidth = this.viewportRuler.getViewportSize().width;
     return screenWidth < 992;
-  }
-
-  public dragAndDrop() {
-    const dragPlace = document.getElementById('dropPlace') as HTMLElement;
-    const input = document.getElementById('todoInput') as HTMLInputElement;
-
-    dragPlace.addEventListener('dragover', function (element) {
-      element.preventDefault();
-    });
-    dragPlace.addEventListener('drop', () => {
-      /*       const listItem: Task = {
-        text: input.value,
-        active: false,
-        completed: false,
-      };
-
-      this.tasksService.addTask(listItem).subscribe(); */
-    });
   }
 }
