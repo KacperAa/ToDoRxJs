@@ -1,7 +1,7 @@
 <ul id="sortList">
   <li
     draggable="true"
-    *ngFor="let listEl of list.listItems"
+    *ngFor="let listEl of list.listItems | async"
     [ngClass]="isLightMode ? 'light-m-list-item' : null"
   >
     <ui-checkbox

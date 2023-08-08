@@ -8,7 +8,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Subscription, fromEvent, interval } from 'rxjs';
+import { Subscription, exhaustMap, fromEvent, interval } from 'rxjs';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
@@ -23,8 +23,9 @@ import { NgForm, NgModel } from '@angular/forms';
 export class MenageTasksListComponent
   implements OnInit, OnDestroy, AfterViewInit
 {
-  @ViewChild('drag') drag!: ElementRef;
-  @ViewChild('input') addTaskInput!: ElementRef;
+  /*   @ViewChild('form') form!: ElementRef;
+  @ViewChild('inputControl') input!: ElementRef;
+  @ViewChild('dupa') addTaskBtn!: ElementRef; */
   @Input({ required: false })
   public isLightMode!: boolean;
   public isSmallDevice!: boolean;
@@ -52,17 +53,7 @@ export class MenageTasksListComponent
   public listData: List = {
     icon: '../../../assets/images/icon-cross.svg',
     alt: 'close icon',
-    listItems: [
-      { text: 'Jog around the park 3x', active: false, completed: false },
-      { text: '10 minutes meditation', active: false, completed: false },
-      { text: 'Read for 1 hour', active: false, completed: false },
-      { text: 'Pick up groceries', active: false, completed: false },
-      {
-        text: 'Complete Todo App on Frontend Mentor',
-        active: false,
-        completed: false,
-      },
-    ],
+    listItems: null,
   };
 
   public task: Partial<Task> = {};
@@ -77,6 +68,7 @@ export class MenageTasksListComponent
   public ngOnInit(): void {
     this.isSmallDevice = this._getScreenSize();
     this._sub.add(this._trackWindowWidth());
+    this.getTasks();
   }
 
   public ngAfterViewInit(): void {}
@@ -92,8 +84,13 @@ export class MenageTasksListComponent
       this.task.completed = false;
       this.tasksService.addTask(this.task as Task).subscribe(() => {
         form.resetForm();
+        this.getTasks();
       });
     }
+  }
+
+  public getTasks(): void {
+    this.listData.listItems = this.tasksService.getTasks();
   }
 
   private _setErrMess(input: NgModel): void {
