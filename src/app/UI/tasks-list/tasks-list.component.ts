@@ -24,7 +24,6 @@ export class TasksListComponent implements AfterViewInit {
     let liCollection: any = sortList?.getElementsByTagName('li');
     let selectedLi: HTMLLIElement | null = null;
 
-    // (B) MAKE ITEMS DRAGGABLE + SORTABLE
     for (let li of liCollection) {
       li.ondragstart = () => {
         selectedLi = li;
@@ -42,10 +41,8 @@ export class TasksListComponent implements AfterViewInit {
         }
       };
 
-      // (B4) DRAG LEAVE - REMOVE RED HIGHLIGHT
       li.ondragleave = () => li.classList.remove('active');
 
-      // (B5) DRAG END - REMOVE ALL HIGHLIGHTS
       li.ondragend = () => {
         for (let li of liCollection) {
           li.classList.remove('hint');
@@ -53,20 +50,18 @@ export class TasksListComponent implements AfterViewInit {
         }
       };
 
-      // (B6) DRAG OVER - PREVENT THE DEFAULT "DROP", SO WE CAN DO OUR OWN
       li.ondragover = (selectedLi: DragEvent) => selectedLi.preventDefault();
 
-      // (B7) ON DROP - DO SOMETHING
       li.ondrop = (movedLi: DragEvent) => {
         movedLi.preventDefault();
         if (li !== selectedLi) {
           let actualPos = 0;
           let droppedPos = 0;
-          for (let li = 0; li < liCollection.length; li++) {
-            if (selectedLi === liCollection[li]) {
+          for (let i = 0; i < liCollection.length; i++) {
+            if (selectedLi === liCollection[i]) {
               actualPos = li;
             }
-            if (li === liCollection[li]) {
+            if (li === liCollection[i]) {
               droppedPos = li;
             }
           }
