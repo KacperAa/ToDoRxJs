@@ -52,8 +52,7 @@ export class TasksListComponent implements AfterViewInit {
 
       li.ondragover = (selectedLi: DragEvent) => selectedLi.preventDefault();
 
-      li.ondrop = (movedLi: DragEvent) => {
-        movedLi.preventDefault();
+      li.ondrop = () => {
         let actualPos = 0;
         let droppedPos = 0;
 
