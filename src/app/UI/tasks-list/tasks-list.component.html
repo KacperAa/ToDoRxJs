@@ -7,6 +7,7 @@
     <ui-checkbox
       (emitChecked)="handleCheckbox($event)"
       [text]="listEl.text"
+      [isChecked]="listEl.active"
     ></ui-checkbox>
     <button (click)="taskId$.next(listEl.id!)">
       <img [src]="list.icon" [alt]="list.alt" />
