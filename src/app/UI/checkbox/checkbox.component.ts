@@ -8,9 +8,10 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CheckboxComponent implements OnInit {
   @Input({ required: false })
   public text!: string;
+  @Input({ required: false })
+  public isChecked: boolean = false;
   @Output()
   public emitChecked = new EventEmitter<boolean>();
-  public isChecked: boolean = false;
 
   public ngOnInit(): void {
     this.emitChecked.emit(this.isChecked);
