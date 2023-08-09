@@ -21,8 +21,10 @@ export class TasksListComponent implements AfterViewInit {
     this.list.listItems
       ?.pipe(
         map((tasks: Task[]) => {
-          const taskEl = tasks.find((listEl: Task) => listEl.id === task.id);
-          taskEl!.active = checked;
+          const taskEl: Task = tasks.find(
+            (listEl: Task) => listEl.id === task.id
+          ) as Task;
+          taskEl.active = checked;
           return tasks;
         })
       )
