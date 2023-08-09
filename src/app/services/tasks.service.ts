@@ -11,8 +11,8 @@ export class TasksService {
 
   constructor(private http: HttpClient) {}
 
-  public addTask(task: Task): Observable<any> {
-    return this.http.post(this._url, task);
+  public addTask(task: Task): Observable<{ [key: string]: string }> {
+    return this.http.post<{ key: string }>(this._url, task);
   }
 
   public getTasks(): Observable<Task[]> {
@@ -25,5 +25,11 @@ export class TasksService {
         return taskList;
       })
     );
+  }
+
+  public deleteTask(id: string): Observable<Task> {
+    const taskUrl = `https://todo-18d0c-default-rtdb.firebaseio.com/tasks/${id}.json`;
+
+    return this.http.delete<Task>(taskUrl);
   }
 }

@@ -5,7 +5,7 @@ import {
   Input,
   ViewChild,
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Subject, exhaustMap, fromEvent } from 'rxjs';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -19,7 +19,7 @@ export class TasksListComponent implements AfterViewInit {
   public list!: List;
   @Input({ required: false })
   public isLightMode!: boolean;
-  @ViewChild('btnDelete') private _btnDelete!: ElementRef;
+  public taskId = new Subject<string>();
 
   test(checked: boolean) {}
 
@@ -27,8 +27,10 @@ export class TasksListComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.draggable();
+  }
 
-    const btnDelete$ = fromEvent(this._btnDelete.nativeElement, 'click');
+  public deleteTask(id: string): void {
+    this._tasksService.deleteTask(id).subscribe();
   }
 
   public draggable(): void {
