@@ -2,7 +2,10 @@
   <li
     draggable="true"
     *ngFor="let listEl of list.listItems | async"
-    [ngClass]="isLightMode ? 'light-m-list-item' : null"
+    [ngClass]="{
+      'light-m-list-item': isLightMode,
+
+    }"
   >
     <ui-checkbox
       (emitChecked)="taskIdPatch$.next({ checked: $event, task: listEl })"
