@@ -39,9 +39,29 @@ label {
     border: 1px solid colors.$clr-primary-200;
     transform: scale(1.1);
   }
+
+  .is-checked {
+    position: relative;
+    color: colors.$clr-dark-m-300;
+  }
+
+  .is-checked::before {
+    content: "";
+    position: absolute;
+    top: 40%;
+    height: 1px;
+    width: 100%;
+    background-color: colors.$clr-dark-m-300;
+    transform-origin: left;
+    animation: custom-line-through 0.25s ease-in-out;
+  }
 }
 
-.is-checked {
-  text-decoration: line-through;
-  color: colors.$clr-dark-m-300;
+@keyframes custom-line-through {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
 }
