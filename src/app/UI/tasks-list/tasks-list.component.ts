@@ -19,7 +19,7 @@ export class TasksListComponent implements AfterViewInit {
   public list!: List;
   @Input({ required: false })
   public isLightMode!: boolean;
-  public taskId = new Subject<string>();
+  public taskId$ = new Subject<string>();
 
   test(checked: boolean) {}
 
@@ -27,10 +27,17 @@ export class TasksListComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.draggable();
+    this.deleteTask();
   }
 
-  public deleteTask(id: string): void {
-    this._tasksService.deleteTask(id).subscribe();
+  public deleteTask(): void {
+    this.taskId$
+      .pipe(
+        exhaustMap((taskId: string) => {
+          return this._tasksService.deleteTask(taskId);
+        })
+      )
+      .subscribe(() => (this.list.listItems = this._tasksService.getTasks()));
   }
 
   public draggable(): void {

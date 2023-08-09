@@ -8,7 +8,7 @@
       (emitChecked)="test($event)"
       [text]="listEl.text"
     ></ui-checkbox>
-    <button (click)="deleteTask(listEl.id!)">
+    <button (click)="taskId$.next(listEl.id!)">
       <img [src]="list.icon" [alt]="list.alt" />
     </button>
   </li>
