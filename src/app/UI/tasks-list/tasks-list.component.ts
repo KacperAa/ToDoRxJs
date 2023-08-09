@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, Input } from '@angular/core';
-import { Subject, exhaustMap, map, of } from 'rxjs';
+import { Subject, exhaustMap, map, switchMap } from 'rxjs';
 import { dragAndDrop } from 'src/app/functions/drag-and-drop.function';
 import { List } from 'src/app/models/list-item.interface';
 import { Task } from 'src/app/models/task.interface';
@@ -15,24 +15,8 @@ export class TasksListComponent implements AfterViewInit {
   public list!: List;
   @Input({ required: false })
   public isLightMode!: boolean;
-  public taskId$ = new Subject<string>();
-
-  public handleCheckbox(checked: boolean, task: Task): void {
-    this.list.listItems
-      ?.pipe(
-        map((tasks: Task[]) => {
-          const taskEl: Task = tasks.find(
-            (listEl: Task) => listEl.id === task.id
-          ) as Task;
-          taskEl.active = checked;
-          return tasks;
-        })
-      )
-      .subscribe((newList: Task[]) => {
-        const newList$ = of(newList);
-        this.list.listItems = newList$;
-      });
-  }
+  public taskIdDel$ = new Subject<string>();
+  public taskIdPatch$ = new Subject<{ checked: boolean; task: Task }>();
 
   constructor(private _tasksService: TasksService) {}
 
@@ -41,11 +25,26 @@ export class TasksListComponent implements AfterViewInit {
       dragAndDrop('sortList');
     }, 500);
 
-    this.deleteTask();
+    this._deleteTask();
+    this._patchActiveStatus();
   }
 
-  public deleteTask(): void {
-    this.taskId$
+  private _patchActiveStatus(): void {
+    this.taskIdPatch$
+      .pipe(
+        map((value: { checked: boolean; task: Task }) => {
+          value.task.active = value.checked;
+          return value.task;
+        }),
+        switchMap((task: Task) => {
+          return this._tasksService.patchTask(task);
+        })
+      )
+      .subscribe();
+  }
+
+  private _deleteTask(): void {
+    this.taskIdDel$
       .pipe(
         exhaustMap((taskId: string) => {
           return this._tasksService.deleteTask(taskId);

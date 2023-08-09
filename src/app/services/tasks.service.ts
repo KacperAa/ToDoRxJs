@@ -27,11 +27,8 @@ export class TasksService {
     );
   }
 
-  public patchTask(
-    id: string,
-    task: Task
-  ): Observable<{ [key: string]: string }> {
-    const taskUrl = `https://todo-18d0c-default-rtdb.firebaseio.com/tasks/${id}.json`;
+  public patchTask(task: Task): Observable<{ [key: string]: string }> {
+    const taskUrl = `https://todo-18d0c-default-rtdb.firebaseio.com/tasks/${task.id}.json`;
 
     return this.http.patch<{ [key: string]: string }>(taskUrl, task);
   }
