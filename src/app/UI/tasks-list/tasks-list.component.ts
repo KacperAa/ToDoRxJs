@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { Subject, exhaustMap, map, switchMap } from 'rxjs';
 import { dragAndDrop } from 'src/app/functions/drag-and-drop.function';
 import { List } from 'src/app/models/list-item.interface';
@@ -10,7 +10,7 @@ import { TasksService } from 'src/app/services/tasks.service';
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss'],
 })
-export class TasksListComponent implements AfterViewInit {
+export class TasksListComponent implements OnInit, AfterViewInit {
   @Input({ required: true })
   public list!: List;
   @Input({ required: false })
@@ -20,13 +20,15 @@ export class TasksListComponent implements AfterViewInit {
 
   constructor(private _tasksService: TasksService) {}
 
+  public ngOnInit(): void {
+    this._deleteTask();
+    this._patchActiveStatus();
+  }
+
   public ngAfterViewInit(): void {
     setTimeout(() => {
       dragAndDrop('sortList');
-    }, 500);
-
-    this._deleteTask();
-    this._patchActiveStatus();
+    }, 1000);
   }
 
   private _patchActiveStatus(): void {
@@ -50,6 +52,12 @@ export class TasksListComponent implements AfterViewInit {
           return this._tasksService.deleteTask(taskId);
         })
       )
-      .subscribe(() => (this.list.listItems = this._tasksService.getTasks()));
+      .subscribe(() => {
+        this._getTasks();
+      });
+  }
+
+  private _getTasks(): void {
+    this.list.listItems = this._tasksService.getTasks();
   }
 }
