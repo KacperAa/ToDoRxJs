@@ -1,7 +1,8 @@
 <main [ngClass]="isLightmode ? 'light-m-bg-clr' : null">
   <app-hero
     [isLightMode]="isLightmode"
-    (btnChangeModeEmitter)="btnChangeMode = $event"
+    (btnChangeModeEmitter)="getChangeModeBtn($event)"
   ></app-hero>
   <app-menage-tasks-list [isLightMode]="isLightmode"></app-menage-tasks-list>
 </main>
+<!-- <div *ngIf="isFetching" class="load-app"><p>loading...</p></div> -->

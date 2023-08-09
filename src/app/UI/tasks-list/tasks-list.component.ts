@@ -1,5 +1,13 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import { fromEvent } from 'rxjs';
 import { List } from 'src/app/models/list-item.interface';
+import { TasksService } from 'src/app/services/tasks.service';
 
 @Component({
   selector: 'ui-list',
@@ -9,13 +17,18 @@ import { List } from 'src/app/models/list-item.interface';
 export class TasksListComponent implements AfterViewInit {
   @Input({ required: true })
   public list!: List;
-  @Input()
+  @Input({ required: false })
   public isLightMode!: boolean;
+  @ViewChild('btnDelete') private _btnDelete!: ElementRef;
 
   test(checked: boolean) {}
 
+  constructor(private _tasksService: TasksService) {}
+
   public ngAfterViewInit(): void {
     this.draggable();
+
+    const btnDelete$ = fromEvent(this._btnDelete.nativeElement, 'click');
   }
 
   public draggable(): void {

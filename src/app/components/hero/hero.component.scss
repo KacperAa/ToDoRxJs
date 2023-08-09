@@ -35,7 +35,7 @@
   }
 }
 
-section::before {
+.container::before {
   content: "";
   position: absolute;
   height: 100%;
@@ -43,6 +43,7 @@ section::before {
   z-index: -1;
   background-image: url("../../../assets/images/bg-mobile-dark.jpg");
   background-size: cover;
+  animation: start-app 0.3s ease-in-out;
 }
 
 /* tablet > */
@@ -67,10 +68,20 @@ section::before {
 
 .light-mode::before {
   background-image: url("../../../assets/images/bg-mobile-light.jpg");
+  animation: start-app 0.3s ease-in-out;
 }
 
 @media (min-width: 768px) {
   .light-mode::before {
     background-image: url("../../../assets/images/bg-desktop-light.jpg");
+  }
+}
+
+@keyframes start-app {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
   }
 }

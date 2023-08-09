@@ -16,6 +16,7 @@ import { Subscription, exhaustMap, fromEvent } from 'rxjs';
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   public isLightmode!: boolean;
   public btnChangeMode!: ElementRef;
+
   private _subs = new Subscription();
 
   constructor(private modeService: ApplicationModeService) {}
@@ -40,11 +41,16 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this._subs.unsubscribe();
   }
 
+  public getChangeModeBtn(btnRef: ElementRef) {
+    this.btnChangeMode = btnRef;
+  }
+
   public getAppMode(): void {
     this.modeService.getMode().subscribe({
       next: (lightmode: boolean) => {
         this.isLightmode = lightmode;
       },
+      complete: () => {},
     });
   }
 }

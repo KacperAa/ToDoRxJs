@@ -73,19 +73,21 @@ export class MenageTasksListComponent
       'click'
     );
 
-    obsBtn$
-      .pipe(
-        map(() => this._setErrMess()),
-        filter(() => this.input.valid as boolean),
-        exhaustMap(() => {
-          this.task.completed = false;
-          return this.tasksService.addTask(this.task as Task);
+    this._sub.add(
+      obsBtn$
+        .pipe(
+          map(() => this._setErrMess()),
+          filter(() => this.input.valid as boolean),
+          exhaustMap(() => {
+            this.task.completed = false;
+            return this.tasksService.addTask(this.task as Task);
+          })
+        )
+        .subscribe(() => {
+          this.form.resetForm();
+          this._getTasks();
         })
-      )
-      .subscribe(() => {
-        this.form.resetForm();
-        this._getTasks();
-      });
+    );
   }
 
   private _getTasks(): void {
