@@ -16,7 +16,7 @@ export class TasksListComponent implements AfterViewInit {
   public isLightMode!: boolean;
   public taskId$ = new Subject<string>();
 
-  test(checked: boolean) {}
+  public handleCheckbox(checked: boolean) {}
 
   constructor(private _tasksService: TasksService) {}
 

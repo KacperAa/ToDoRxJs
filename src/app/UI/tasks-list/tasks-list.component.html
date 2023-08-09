@@ -5,7 +5,7 @@
     [ngClass]="isLightMode ? 'light-m-list-item' : null"
   >
     <ui-checkbox
-      (emitChecked)="test($event)"
+      (emitChecked)="handleCheckbox($event)"
       [text]="listEl.text"
     ></ui-checkbox>
     <button (click)="taskId$.next(listEl.id!)">
