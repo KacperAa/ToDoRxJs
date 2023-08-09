@@ -5,7 +5,7 @@
     [ngClass]="isLightMode ? 'light-m-list-item' : null"
   >
     <ui-checkbox
-      (emitChecked)="handleCheckbox($event)"
+      (emitChecked)="handleCheckbox($event, listEl)"
       [text]="listEl.text"
       [isChecked]="listEl.active"
     ></ui-checkbox>
