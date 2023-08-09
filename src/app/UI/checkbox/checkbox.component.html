@@ -1,4 +1,4 @@
-<label>
+<label [ngClass]="{ 'is-checked': isChecked }">
   <input
     (change)="changeCheckbox($event)"
     type="checkbox"

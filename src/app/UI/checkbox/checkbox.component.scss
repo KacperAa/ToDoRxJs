@@ -1,5 +1,7 @@
 @use "../../../scss/colors" as colors;
+@use "../../../scss/fonts" as fonts;
 label {
+  font-weight: fonts.$fw-bold;
   display: flex;
   align-items: flex-end;
   gap: 1rem;
@@ -37,4 +39,9 @@ label {
     border: 1px solid colors.$clr-primary-200;
     transform: scale(1.1);
   }
+}
+
+.is-checked {
+  text-decoration: line-through;
+  color: colors.$clr-dark-m-300;
 }
