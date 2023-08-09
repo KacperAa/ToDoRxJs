@@ -1,11 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  Input,
-  ViewChild,
-} from '@angular/core';
-import { Subject, exhaustMap, fromEvent } from 'rxjs';
+import { AfterViewInit, Component, Input } from '@angular/core';
+import { Subject, exhaustMap } from 'rxjs';
+import { dragAndDrop } from 'src/app/functions/drag-and-drop.function';
 import { List } from 'src/app/models/list-item.interface';
 import { TasksService } from 'src/app/services/tasks.service';
 
@@ -26,7 +21,10 @@ export class TasksListComponent implements AfterViewInit {
   constructor(private _tasksService: TasksService) {}
 
   public ngAfterViewInit(): void {
-    this.draggable();
+    setTimeout(() => {
+      dragAndDrop('sortList');
+    }, 500);
+
     this.deleteTask();
   }
 
@@ -38,60 +36,5 @@ export class TasksListComponent implements AfterViewInit {
         })
       )
       .subscribe(() => (this.list.listItems = this._tasksService.getTasks()));
-  }
-
-  public draggable(): void {
-    const sortList = document.getElementById('sortList');
-
-    let liCollection: any = sortList?.getElementsByTagName('li');
-    let selectedLi: HTMLLIElement | null = null;
-
-    for (let li of liCollection) {
-      li.ondragstart = () => {
-        selectedLi = li;
-
-        for (let otherLi of liCollection) {
-          if (otherLi != selectedLi) {
-            otherLi.classList.add('hint');
-          }
-        }
-      };
-
-      li.ondragenter = () => {
-        if (li !== selectedLi) {
-          li.classList.add('active');
-        }
-      };
-
-      li.ondragleave = () => li.classList.remove('active');
-
-      li.ondragend = () => {
-        for (let li of liCollection) {
-          li.classList.remove('hint');
-          li.classList.remove('active');
-        }
-      };
-
-      li.ondragover = (selectedLi: DragEvent) => selectedLi.preventDefault();
-
-      li.ondrop = () => {
-        let actualPos = 0;
-        let droppedPos = 0;
-
-        for (let i = 0; i < liCollection.length; i++) {
-          if (selectedLi === liCollection[i]) {
-            actualPos = i;
-          }
-          if (li === liCollection[i]) {
-            droppedPos = i;
-          }
-        }
-        if (actualPos < droppedPos) {
-          li.parentNode.insertBefore(selectedLi, li.nextSibling);
-        } else {
-          li.parentNode.insertBefore(selectedLi, li);
-        }
-      };
-    }
   }
 }
