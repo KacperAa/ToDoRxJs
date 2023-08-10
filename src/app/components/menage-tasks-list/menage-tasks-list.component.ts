@@ -123,6 +123,9 @@ export class MenageTasksListComponent
               (task: Task) => task.completed === true
             );
             return filteredTasks;
+          }),
+          finalize(() => {
+            this.isFetching = false;
           })
         );
       this.listData.listItems = activeTasks$;
