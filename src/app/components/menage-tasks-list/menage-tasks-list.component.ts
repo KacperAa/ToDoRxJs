@@ -107,9 +107,7 @@ export class MenageTasksListComponent
         .getTasks()
         .pipe(
           map((tasks: Task[]) => {
-            return tasks.filter((task: Task) => {
-              return task.completed === true;
-            });
+            return tasks.filter((task: Task) => task.completed === true);
           })
         );
       this.listData.listItems = activeTasks$;
