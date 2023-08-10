@@ -15,107 +15,99 @@ section {
   display: flex;
   justify-content: center;
 
-  .container {
-    /*    position: absolute;
-    top: 15%;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 1; */
+  .input-tasks-and-toggle {
+    display: grid;
+    gap: 2rem;
+    width: 100%;
+    margin-top: 1rem;
+    margin-inline: 2rem;
 
-    .input-tasks-and-toggle {
-      display: grid;
-      gap: 2rem;
-      width: 100%;
-      margin-top: 1rem;
-      margin-inline: 2rem;
+    .add-task {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
 
-      .add-task {
+      input[type="text"] {
+        width: 100%;
+        font-size: 1.5rem;
+        color: colors.$clr-dark-m-200;
+        border: none;
+        outline: none;
+        padding: 0.5rem;
+      }
+      input[type="text"]::placeholder {
+        color: colors.$clr-dark-m-400;
+        font-size: 1.25rem;
+      }
+
+      .invalid-input::placeholder {
+        color: rgb(228, 76, 76) !important;
+      }
+
+      button {
+        position: relative;
+        border: none;
+        background-color: transparent;
+        color: colors.$clr-dark-m-200;
+        padding: 0 1rem;
+        font-size: 1.5rem;
+        transition: 0.25s transform;
+      }
+
+      button::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        background-image: colors.$clr-gradient-primary;
+        transform-origin: right;
+        transition: 0.25s transform;
+      }
+
+      button:hover::after {
+        transform: scaleX(1);
+        transform-origin: left;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+      }
+    }
+
+    p {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0 6rem 0;
+      color: colors.$clr-dark-m-400;
+    }
+
+    .list-and-counter {
+      border-radius: 0.5rem;
+      overflow: auto;
+      box-shadow: 0 0 15px black;
+
+      .list-counter {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
-        border-radius: 0.5rem;
-
-        input[type="text"] {
-          width: 100%;
-          font-size: 1.5rem;
-          color: colors.$clr-dark-m-200;
-          border: none;
-          outline: none;
-          padding: 0.5rem;
-        }
-        input[type="text"]::placeholder {
-          color: colors.$clr-dark-m-400;
-          font-size: 1.25rem;
-        }
-
-        .invalid-input::placeholder {
-          color: rgb(228, 76, 76) !important;
-        }
+        justify-content: space-between;
+        padding: 1.5rem;
+        font-size: 1.5rem;
+        color: colors.$clr-dark-m-400;
 
         button {
-          position: relative;
-          border: none;
           background-color: transparent;
-          color: colors.$clr-dark-m-200;
-          padding: 0 1rem;
-          font-size: 1.5rem;
-          transition: 0.25s transform;
-        }
-
-        button::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          transform: scaleX(0);
-          height: 2px;
-          background-image: colors.$clr-gradient-primary;
-          transform-origin: right;
-          transition: 0.25s transform;
-        }
-
-        button:hover::after {
-          transform: scaleX(1);
-          transform-origin: left;
+          border: none;
+          color: colors.$clr-dark-m-400;
+          transition: 0.3s color;
         }
 
         button:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      p {
-        display: flex;
-        justify-content: center;
-        margin: 2rem 0 6rem 0;
-        color: colors.$clr-dark-m-400;
-      }
-
-      .list-and-counter {
-        border-radius: 0.5rem;
-        overflow: auto;
-        box-shadow: 0 0 15px black;
-
-        .list-counter {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 1.5rem;
-          font-size: 1.5rem;
-          color: colors.$clr-dark-m-400;
-
-          button {
-            background-color: transparent;
-            border: none;
-            color: colors.$clr-dark-m-400;
-            transition: 0.3s color;
-          }
-
-          button:hover {
-            color: colors.$clr-dark-m-200;
-          }
+          color: colors.$clr-dark-m-200;
         }
       }
     }

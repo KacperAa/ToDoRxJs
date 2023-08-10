@@ -11,6 +11,7 @@ ul {
     justify-content: space-between;
     padding: 1.5rem;
     border-bottom: 1px solid colors.$clr-dark-m-400;
+    cursor: grab;
 
     button {
       background-color: transparent;

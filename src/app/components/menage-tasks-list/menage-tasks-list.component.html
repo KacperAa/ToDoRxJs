@@ -1,73 +1,68 @@
 <section>
-  <div class="container">
-    <div class="input-tasks-and-toggle">
-      <form
-        #form="ngForm"
-        class="add-task | dark-m-bg-items"
-        [ngClass]="isLightMode ? ['light-m-bg-clr-100'] : null"
-      >
-        <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
-        <input
-          #inputControl="ngModel"
-          [(ngModel)]="task.text"
-          class="dark-m-bg-items"
-          [ngClass]="{
-            'light-m-bg-clr-100': isLightMode,
-            'light-m-input': isLightMode,
-            'light-m-clr-600': isLightMode,
-            'invalid-input': form.invalid && form.submitted
-          }"
-          type="text"
-          placeholder="Create a new todo..."
-          name="addTask"
-          id="todoInput"
-          [required]="true"
-        />
-        <button #btn type="submit">Add</button>
-      </form>
-      <div
-        class="list-and-counter | dark-m-bg-items"
+  <div class="input-tasks-and-toggle">
+    <form
+      #form="ngForm"
+      class="add-task | dark-m-bg-items"
+      [ngClass]="isLightMode ? ['light-m-bg-clr-100'] : null"
+    >
+      <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
+      <input
+        #inputControl="ngModel"
+        [(ngModel)]="task.text"
+        class="dark-m-bg-items"
         [ngClass]="{
           'light-m-bg-clr-100': isLightMode,
-          'box-sh-light-m': isLightMode
+          'light-m-input': isLightMode,
+          'light-m-clr-600': isLightMode,
+          'invalid-input': form.invalid && form.submitted
         }"
-      >
-        <ui-list
-          *ngIf="!isFetching"
+        type="text"
+        placeholder="Create a new todo..."
+        name="addTask"
+        id="todoInput"
+        [required]="true"
+      />
+      <button #btn type="submit">Add</button>
+    </form>
+    <div
+      class="list-and-counter | dark-m-bg-items"
+      [ngClass]="{
+        'light-m-bg-clr-100': isLightMode,
+        'box-sh-light-m': isLightMode
+      }"
+    >
+      <ui-list
+        *ngIf="!isFetching"
+        [isLightMode]="isLightMode"
+        [list]="listData"
+      ></ui-list>
+      <ui-loading-circle *ngIf="isFetching"></ui-loading-circle>
+      <div class="list-counter" [ngClass]="{ 'light-m-clr-400': isLightMode }">
+        <span>{{ (listData.listItems | async)?.length }} items left</span>
+        <ui-button-toggle
+          *ngIf="!isSmallDevice"
+          (radioBtnVal)="taskListFilter($event)"
           [isLightMode]="isLightMode"
-          [list]="listData"
-        ></ui-list>
-        <ui-loading-circle *ngIf="isFetching"></ui-loading-circle>
-        <div
-          class="list-counter"
+          [buttonsToggle]="buttonsToggle"
+        ></ui-button-toggle>
+        <button
+          (click)="clearCompleted()"
           [ngClass]="{ 'light-m-clr-400': isLightMode }"
         >
-          <span>{{ (listData.listItems | async)?.length }} items left</span>
-          <ui-button-toggle
-            *ngIf="!isSmallDevice"
-            (radioBtnVal)="taskListFilter($event)"
-            [isLightMode]="isLightMode"
-            [buttonsToggle]="buttonsToggle"
-          ></ui-button-toggle>
-          <button
-            (click)="clearCompleted()"
-            [ngClass]="{ 'light-m-clr-400': isLightMode }"
-          >
-            Clear Completed
-          </button>
-        </div>
+          Clear Completed
+        </button>
       </div>
-      <ui-button-toggle
-        *ngIf="isSmallDevice"
-        (radioBtnVal)="taskListFilter($event)"
-        [isLightMode]="isLightMode"
-        [buttonsToggle]="buttonsToggle"
-      ></ui-button-toggle>
-      <div>
-        <p [ngClass]="{ 'light-m-clr-400': isLightMode }" id="dropPlace">
-          Drag and drop to reorder list
-        </p>
-      </div>
+    </div>
+    <ui-button-toggle
+      *ngIf="isSmallDevice"
+      (radioBtnVal)="taskListFilter($event)"
+      [isLightMode]="isLightMode"
+      [buttonsToggle]="buttonsToggle"
+    ></ui-button-toggle>
+    <div>
+      <p [ngClass]="{ 'light-m-clr-400': isLightMode }" id="dropPlace">
+        Drag and drop to reorder list
+      </p>
     </div>
   </div>
 </section>
