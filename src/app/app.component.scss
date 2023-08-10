@@ -10,8 +10,10 @@ main {
   background-color: colors.$clr-dark-m-700;
 
   p {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
     font-size: 1.25rem;
     color: colors.$clr-primary-100;
   }
