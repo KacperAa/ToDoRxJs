@@ -8,6 +8,13 @@
 main {
   min-height: 100vh;
   background-color: colors.$clr-dark-m-700;
+
+  p {
+    display: flex;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: colors.$clr-primary-100;
+  }
 }
 
 /* lightmode */

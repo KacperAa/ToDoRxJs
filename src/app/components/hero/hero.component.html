@@ -1,4 +1,9 @@
-<section class="container" [ngClass]="isLightMode ? 'light-mode' : null">
+<section
+  class="container"
+  [ngClass]="{
+    'light-mode': isLightMode,
+  }"
+>
   <div>
     <h1>todo</h1>
     <button #btnChangeMode>

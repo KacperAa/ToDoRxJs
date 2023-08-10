@@ -16,13 +16,13 @@ section {
   justify-content: center;
 
   .container {
-    position: absolute;
+    /*    position: absolute;
     top: 15%;
     display: flex;
     flex-wrap: wrap;
-    z-index: 1;
+    z-index: 1; */
 
-    .input-and-tasks {
+    .input-tasks-and-toggle {
       display: grid;
       gap: 2rem;
       width: 100%;
@@ -124,7 +124,7 @@ section {
 
 /* desktop */
 @media (min-width: 992px) {
-  .input-and-tasks {
+  .input-tasks-and-toggle {
     justify-content: center;
 
     > * {

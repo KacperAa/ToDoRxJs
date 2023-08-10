@@ -19,7 +19,7 @@ export class HeroComponent {
   @Output()
   public btnChangeModeEmitter = new EventEmitter<ElementRef>();
 
-  public ngAfterViewInit() {
+  public ngAfterViewInit(): void {
     this.btnChangeModeEmitter.emit(this.btnChange);
   }
 }
