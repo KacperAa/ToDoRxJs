@@ -10,6 +10,7 @@ import { TasksListComponent } from './UI/tasks-list/tasks-list.component';
 import { CheckboxComponent } from './UI/checkbox/checkbox.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoadingCircleComponent } from './UI/loading-circle/loading-circle.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { FormsModule } from '@angular/forms';
     ButtonToggleComponent,
     TasksListComponent,
     CheckboxComponent,
+    LoadingCircleComponent,
   ],
   imports: [
     BrowserModule,

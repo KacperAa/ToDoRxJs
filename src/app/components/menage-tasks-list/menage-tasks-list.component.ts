@@ -13,6 +13,7 @@ import {
   Subscription,
   exhaustMap,
   filter,
+  finalize,
   fromEvent,
   map,
 } from 'rxjs';
@@ -129,6 +130,7 @@ export class MenageTasksListComponent
   }
 
   public clearCompleted(): void {
+    this.isFetching = true;
     this.listData.listItems
       ?.pipe(
         map((tasks: Task[]) => {
@@ -138,17 +140,25 @@ export class MenageTasksListComponent
           return tasksToDel;
         })
       )
-      .subscribe((filteredTasks: Task[]) => {
-        for (let task of filteredTasks) {
-          this.tasksService.deleteTask(task.id!).subscribe(() => {
-            this._getTasks();
-          });
-        }
+      .subscribe({
+        next: (filteredTasks: Task[]) => {
+          for (let task of filteredTasks) {
+            this.tasksService.deleteTask(task.id!).subscribe(() => {
+              this._getTasks();
+            });
+          }
+        },
+        complete: () => {
+          this.isFetching = false;
+        },
       });
   }
 
   private _getTasks(): void {
-    this.listData.listItems = this.tasksService.getTasks();
+    this.isFetching = true;
+    this.listData.listItems = this.tasksService
+      .getTasks()
+      .pipe(finalize(() => (this.isFetching = false)));
   }
 
   private _setErrMess(): void {

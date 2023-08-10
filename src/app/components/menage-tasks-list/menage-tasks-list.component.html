@@ -37,7 +37,7 @@
           [isLightMode]="isLightMode"
           [list]="listData"
         ></ui-list>
-        <p *ngIf="isFetching">loading...</p>
+        <ui-loading-circle *ngIf="isFetching"></ui-loading-circle>
         <div
           class="list-counter"
           [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
