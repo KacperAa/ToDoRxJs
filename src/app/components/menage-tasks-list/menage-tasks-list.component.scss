@@ -125,12 +125,12 @@ section {
 
 /* desktop */
 @media (min-width: 992px) {
-  section .input-and-tasks {
+  .input-and-tasks {
     justify-content: center;
-  }
 
-  section .input-and-tasks > * {
-    width: 38vw;
+    > * {
+      width: 38vw;
+    }
   }
 
   .list-counter {
