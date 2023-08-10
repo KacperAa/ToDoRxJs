@@ -3,7 +3,7 @@
     <form
       #form="ngForm"
       class="add-task | dark-m-bg-items"
-      [ngClass]="isLightMode ? ['light-m-bg-clr-100'] : null"
+      [ngClass]="{ 'light-m-bg-clr-100': isLightMode }"
     >
       <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
       <input
