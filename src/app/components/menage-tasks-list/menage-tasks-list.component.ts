@@ -123,6 +123,25 @@ export class MenageTasksListComponent
     }
   }
 
+  public clearCompleted(): void {
+    this.listData.listItems
+      ?.pipe(
+        map((tasks: Task[]) => {
+          const tasksToDel = tasks.filter(
+            (task: Task) => task.completed === true
+          );
+          return tasksToDel;
+        })
+      )
+      .subscribe((filteredTasks: Task[]) => {
+        for (let task of filteredTasks) {
+          this.tasksService.deleteTask(task.id!).subscribe(() => {
+            this._getTasks();
+          });
+        }
+      });
+  }
+
   private _getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
     this.listData.listItems.subscribe((taskList: Task[]) => {

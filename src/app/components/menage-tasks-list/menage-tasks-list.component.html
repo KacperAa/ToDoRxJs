@@ -40,7 +40,10 @@
           [isLightMode]="isLightMode"
           [buttonsToggle]="buttonsToggle"
         ></ui-button-toggle>
-        <button [ngClass]="isLightMode ? 'light-m-clr-400' : null">
+        <button
+          (click)="clearCompleted()"
+          [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+        >
           Clear Completed
         </button>
       </div>
