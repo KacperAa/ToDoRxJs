@@ -92,13 +92,33 @@ export class MenageTasksListComponent
 
   public taskListFilter(btnValue: string): void {
     if (btnValue === 'active') {
-      const activeTasks$: Observable<Task[]> = this.listData.listItems?.pipe(
-        map((tasks: Task[]) => {
-          return tasks.filter((task: Task) => task.active === true);
-        })
-      ) as Observable<Task[]>;
-
+      const activeTasks$: Observable<Task[]> = this.tasksService
+        .getTasks()
+        .pipe(
+          map((tasks: Task[]) => {
+            return tasks.filter((task: Task) => {
+              return task.active === false;
+            });
+          })
+        );
       this.listData.listItems = activeTasks$;
+    }
+
+    if (btnValue === 'completed') {
+      const activeTasks$: Observable<Task[]> = this.tasksService
+        .getTasks()
+        .pipe(
+          map((tasks: Task[]) => {
+            return tasks.filter((task: Task) => {
+              return task.active === true;
+            });
+          })
+        );
+      this.listData.listItems = activeTasks$;
+    }
+
+    if (btnValue === 'all') {
+      this._getTasks();
     }
   }
 
