@@ -40,7 +40,7 @@
         <ui-loading-circle *ngIf="isFetching"></ui-loading-circle>
         <div
           class="list-counter"
-          [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
+          [ngClass]="{ 'light-m-clr-400': isLightMode }"
         >
           <span>{{ (listData.listItems | async)?.length }} items left</span>
           <ui-button-toggle
@@ -51,7 +51,7 @@
           ></ui-button-toggle>
           <button
             (click)="clearCompleted()"
-            [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+            [ngClass]="{ 'light-m-clr-400': isLightMode }"
           >
             Clear Completed
           </button>
@@ -64,11 +64,7 @@
         [buttonsToggle]="buttonsToggle"
       ></ui-button-toggle>
       <div>
-        <p
-          class="drop-place"
-          [ngClass]="isLightMode ? 'light-m-clr-400' : null"
-          id="dropPlace"
-        >
+        <p [ngClass]="{ 'light-m-clr-400': isLightMode }" id="dropPlace">
           Drag and drop to reorder list
         </p>
       </div>
