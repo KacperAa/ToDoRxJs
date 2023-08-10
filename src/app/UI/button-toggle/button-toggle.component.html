@@ -5,8 +5,9 @@
   <ng-container *ngFor="let button of buttonsToggle">
     <input
       type="radio"
+      (change)="radioBtnVal.emit(button.value)"
       [id]="button.buttonId"
-      [name]="button?.name"
+      [name]="button.name"
       [value]="button.value"
       [checked]="checkedDefault(button)"
     />

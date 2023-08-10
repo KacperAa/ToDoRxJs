@@ -90,6 +90,10 @@ export class MenageTasksListComponent
     );
   }
 
+  public taskListFilter(btnValue: string): void {
+    console.log(btnValue);
+  }
+
   private _getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
   }

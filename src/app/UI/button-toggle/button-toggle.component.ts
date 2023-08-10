@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonToggle } from 'src/app/models/buttons-toggle.interface';
 
 @Component({
@@ -11,6 +11,8 @@ export class ButtonToggleComponent {
   public buttonsToggle!: ButtonToggle[];
   @Input()
   public isLightMode!: boolean;
+  @Output()
+  public radioBtnVal = new EventEmitter<string>();
 
   public checkedDefault(button: ButtonToggle): boolean {
     return this.buttonsToggle.indexOf(button) === 0 ? true : false;
