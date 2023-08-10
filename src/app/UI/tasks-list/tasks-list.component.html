@@ -1,0 +1,20 @@
+<ul *ngIf="!isFetching" id="sortList">
+  <li
+    draggable="true"
+    *ngFor="let listEl of list.listItems | async"
+    [ngClass]="{
+      'light-m-list-item': isLightMode,
+
+    }"
+  >
+    <ui-checkbox
+      (emitChecked)="taskIdPatch$.next({ checked: $event, task: listEl })"
+      [text]="listEl.text"
+      [isChecked]="listEl.completed"
+    ></ui-checkbox>
+    <button (click)="taskIdDel$.next(listEl.id!)">
+      <img [src]="list.icon" [alt]="list.alt" />
+    </button>
+  </li>
+</ul>
+<ui-loading-circle *ngIf="isFetching"></ui-loading-circle>

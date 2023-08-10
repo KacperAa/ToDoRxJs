@@ -1,0 +1,16 @@
+<div
+  class="buttons-toggle"
+  [ngClass]="isLightMode ? ['box-sh-light-m', 'bg-clr-light-m-100'] : null"
+>
+  <ng-container *ngFor="let button of buttonsToggle">
+    <input
+      type="radio"
+      (change)="radioBtnVal.emit(button.value)"
+      [id]="button.buttonId"
+      [name]="button.name"
+      [value]="button.value"
+      [checked]="checkedDefault(button)"
+    />
+    <label [for]="button.buttonId">{{ button.text }}</label>
+  </ng-container>
+</div>

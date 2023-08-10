@@ -1,0 +1,47 @@
+@use "../../../scss/colors" as colors;
+/* general classes */
+
+ul {
+  list-style-type: none;
+  color: colors.$clr-dark-m-200;
+  font-size: 1.25rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-bottom: 1px solid colors.$clr-dark-m-400;
+    cursor: grab;
+
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s transform;
+    }
+
+    button:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .hint {
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    border-bottom: 1px solid gray;
+    opacity: 0.5;
+  }
+
+  .active {
+    border: 1px solid #ffa5a5;
+    background: #ffe7e7;
+  }
+}
+
+/* lightmode */
+
+.light-m-list-item {
+  color: colors.$clr-light-m-600;
+  border-bottom: 1px solid colors.$clr-light-m-300 !important;
+  font-weight: 700;
+}

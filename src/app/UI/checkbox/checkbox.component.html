@@ -1,0 +1,8 @@
+<label>
+  <input
+    (change)="changeCheckbox($event)"
+    type="checkbox"
+    [checked]="isChecked"
+  />
+  <span [ngClass]="{ 'is-checked': isChecked }">{{ text }}</span>
+</label>

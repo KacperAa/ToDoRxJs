@@ -1,6 +1,6 @@
-@use "../../../../scss/fonts" as fonts;
+@use "../../../scss/fonts" as fonts;
 
-section {
+.container {
   position: relative;
   z-index: 1;
   min-height: 20rem;
@@ -35,21 +35,53 @@ section {
   }
 }
 
-section::before {
+.container::before {
   content: "";
   position: absolute;
   height: 100%;
   width: 100%;
   z-index: -1;
-  background-image: url("../../../../assets/images/bg-mobile-dark.jpg");
+  background-image: url("../../../assets/images/bg-mobile-dark.jpg");
   background-size: cover;
+  animation: start-app 0.3s ease-in-out;
+}
+
+/* tablet > */
+
+@media (min-width: 768px) {
+  .container::before {
+    background-image: url("../../../assets/images/bg-desktop-dark.jpg");
+  }
 }
 
 /* desktop */
+
 @media (min-width: 992px) {
-  section div {
+  .container div {
     display: flex;
     justify-content: space-evenly;
     padding-block: 4.5rem;
+  }
+}
+
+/* light mode */
+
+.light-mode::before {
+  background-image: url("../../../assets/images/bg-mobile-light.jpg");
+  animation: start-app 0.3s ease-in-out;
+}
+
+@media (min-width: 768px) {
+  .light-mode::before {
+    background-image: url("../../../assets/images/bg-desktop-light.jpg");
+  }
+}
+
+@keyframes start-app {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
   }
 }
