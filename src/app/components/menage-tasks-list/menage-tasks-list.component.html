@@ -5,7 +5,7 @@
       class="add-task | dark-m-bg-items"
       [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null"
     >
-      <ui-checkbox (emitChecked)="task.active = $event"></ui-checkbox>
+      <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
       <input
         #inputControl="ngModel"
         [(ngModel)]="task.text"

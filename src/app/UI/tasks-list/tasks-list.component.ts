@@ -35,7 +35,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
     this.taskIdPatch$
       .pipe(
         map((value: { checked: boolean; task: Task }) => {
-          value.task.active = value.checked;
+          value.task.completed = value.checked;
           return value.task;
         }),
         switchMap((task: Task) => {

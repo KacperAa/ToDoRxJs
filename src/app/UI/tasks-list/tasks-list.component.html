@@ -10,7 +10,7 @@
     <ui-checkbox
       (emitChecked)="taskIdPatch$.next({ checked: $event, task: listEl })"
       [text]="listEl.text"
-      [isChecked]="listEl.active"
+      [isChecked]="listEl.completed"
     ></ui-checkbox>
     <button (click)="taskIdDel$.next(listEl.id!)">
       <img [src]="list.icon" [alt]="list.alt" />
