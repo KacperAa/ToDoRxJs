@@ -17,6 +17,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
   public isLightMode!: boolean;
   public taskIdDel$ = new Subject<string>();
   public taskIdPatch$ = new Subject<{ checked: boolean; task: Task }>();
+  public isFetching: boolean = false;
 
   constructor(private _tasksService: TasksService) {}
 
@@ -49,11 +50,13 @@ export class TasksListComponent implements OnInit, AfterViewInit {
     this.taskIdDel$
       .pipe(
         exhaustMap((taskId: string) => {
+          this.isFetching = true;
           return this._tasksService.deleteTask(taskId);
         })
       )
       .subscribe(() => {
         this._getTasks();
+        this.isFetching = false;
       });
   }
 

@@ -1,4 +1,4 @@
-<ul id="sortList">
+<ul *ngIf="!isFetching" id="sortList">
   <li
     draggable="true"
     *ngFor="let listEl of list.listItems | async"
@@ -17,3 +17,4 @@
     </button>
   </li>
 </ul>
+<ui-loading-circle *ngIf="isFetching"></ui-loading-circle>

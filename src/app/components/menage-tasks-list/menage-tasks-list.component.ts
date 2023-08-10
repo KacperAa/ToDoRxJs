@@ -96,6 +96,7 @@ export class MenageTasksListComponent
   }
 
   public taskListFilter(btnValue: string): void {
+    this.isFetching = true;
     if (btnValue === 'active') {
       const activeTasks$: Observable<Task[]> = this.tasksService
         .getTasks()
@@ -105,6 +106,9 @@ export class MenageTasksListComponent
               (task: Task) => task.completed === false
             );
             return filteredTasks;
+          }),
+          finalize(() => {
+            this.isFetching = false;
           })
         );
       this.listData.listItems = activeTasks$;
@@ -119,6 +123,9 @@ export class MenageTasksListComponent
               (task: Task) => task.completed === true
             );
             return filteredTasks;
+          }),
+          finalize(() => {
+            this.isFetching = false;
           })
         );
       this.listData.listItems = activeTasks$;
