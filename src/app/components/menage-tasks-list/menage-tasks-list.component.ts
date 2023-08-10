@@ -91,7 +91,15 @@ export class MenageTasksListComponent
   }
 
   public taskListFilter(btnValue: string): void {
-    console.log(btnValue);
+    if (btnValue === 'active') {
+      const activeTasks$: Observable<Task[]> = this.listData.listItems?.pipe(
+        map((tasks: Task[]) => {
+          return tasks.filter((task: Task) => task.active === true);
+        })
+      ) as Observable<Task[]>;
+
+      this.listData.listItems = activeTasks$;
+    }
   }
 
   private _getTasks(): void {
