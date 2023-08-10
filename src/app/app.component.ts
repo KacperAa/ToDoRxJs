@@ -16,25 +16,16 @@ import { Subscription, exhaustMap, fromEvent } from 'rxjs';
 export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
   public isLightmode!: boolean;
   public btnChangeMode!: ElementRef;
-
   private _subs = new Subscription();
 
-  constructor(private modeService: ApplicationModeService) {}
+  constructor(private _modeService: ApplicationModeService) {}
 
   public ngOnInit(): void {
-    this.getAppMode();
+    this._getAppMode();
   }
 
   public ngAfterViewInit(): void {
-    const obs$ = fromEvent(this.btnChangeMode.nativeElement, 'click');
-
-    this._subs.add(
-      obs$
-        .pipe(exhaustMap(() => this.modeService.patchMode(!this.isLightmode)))
-        .subscribe(() => {
-          this.getAppMode();
-        })
-    );
+    this._changeAppMode();
   }
 
   public ngOnDestroy(): void {
@@ -45,12 +36,21 @@ export class AppComponent implements OnInit, AfterViewInit, OnDestroy {
     this.btnChangeMode = btnRef;
   }
 
-  public getAppMode(): void {
-    this.modeService.getMode().subscribe({
-      next: (lightmode: boolean) => {
-        this.isLightmode = lightmode;
-      },
-      complete: () => {},
+  private _changeAppMode(): void {
+    const changeMode$ = fromEvent(this.btnChangeMode.nativeElement, 'click');
+
+    this._subs.add(
+      changeMode$
+        .pipe(exhaustMap(() => this._modeService.patchMode(!this.isLightmode)))
+        .subscribe(() => {
+          this._getAppMode();
+        })
+    );
+  }
+
+  private _getAppMode(): void {
+    this._modeService.getMode().subscribe((lightmode: boolean) => {
+      this.isLightmode = lightmode;
     });
   }
 }
