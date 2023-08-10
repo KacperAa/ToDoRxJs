@@ -1,8 +1,10 @@
-<main [ngClass]="isLightmode ? 'light-m-bg-clr' : null">
+<main [ngClass]="{ 'light-m-bg-clr': isLightmode }">
   <app-hero
     [isLightMode]="isLightmode"
     (btnChangeModeEmitter)="getChangeModeBtn($event)"
   ></app-hero>
   <app-menage-tasks-list [isLightMode]="isLightmode"></app-menage-tasks-list>
-  <p>Challenge by Frontend Mentor. Coded by KacperAa.</p>
 </main>
+<p [ngClass]="{ 'light-m-bg-clr': isLightmode }">
+  Challenge by Frontend Mentor. Coded by KacperAa.
+</p>
