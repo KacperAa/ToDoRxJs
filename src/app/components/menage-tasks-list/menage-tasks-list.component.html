@@ -1,67 +1,73 @@
 <section>
-  <div class="input-and-tasks">
-    <form
-      #form="ngForm"
-      class="add-task | dark-m-bg-items"
-      [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null"
-    >
-      <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
-      <input
-        #inputControl="ngModel"
-        [(ngModel)]="task.text"
-        class="dark-m-bg-items"
-        [ngClass]="{
-          'light-m-bg-clr-100': isLightMode,
-          'light-m-input': isLightMode,
-          'light-m-clr-600': isLightMode,
-          'invalid-input': form.invalid && form.submitted
-        }"
-        type="text"
-        placeholder="Create a new todo..."
-        name="addTask"
-        id="todoInput"
-        [required]="true"
-      />
-      <button #btn type="submit">Add</button>
-    </form>
-    <div
-      class="list-and-counter | dark-m-bg-items"
-      [ngClass]="isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m '] : null"
-    >
-      <ui-list [isLightMode]="isLightMode" [list]="listData"></ui-list>
+  <div class="container">
+    <div class="input-and-tasks">
+      <form
+        #form="ngForm"
+        class="add-task | dark-m-bg-items"
+        [ngClass]="
+          isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m'] : null
+        "
+      >
+        <ui-checkbox (emitChecked)="task.completed = $event"></ui-checkbox>
+        <input
+          #inputControl="ngModel"
+          [(ngModel)]="task.text"
+          class="dark-m-bg-items"
+          [ngClass]="{
+            'light-m-bg-clr-100': isLightMode,
+            'light-m-input': isLightMode,
+            'light-m-clr-600': isLightMode,
+            'invalid-input': form.invalid && form.submitted
+          }"
+          type="text"
+          placeholder="Create a new todo..."
+          name="addTask"
+          id="todoInput"
+          [required]="true"
+        />
+        <button #btn type="submit">Add</button>
+      </form>
       <div
-        class="list-counter"
-        [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
+        class="list-and-counter | dark-m-bg-items"
+        [ngClass]="
+          isLightMode ? ['light-m-bg-clr-100', 'box-sh-light-m '] : null
+        "
       >
-        <span>{{ (listData.listItems | async)?.length }} items left</span>
-        <ui-button-toggle
-          *ngIf="!isSmallDevice"
-          (radioBtnVal)="taskListFilter($event)"
-          [isLightMode]="isLightMode"
-          [buttonsToggle]="buttonsToggle"
-        ></ui-button-toggle>
-        <button
-          (click)="clearCompleted()"
-          [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+        <ui-list [isLightMode]="isLightMode" [list]="listData"></ui-list>
+        <div
+          class="list-counter"
+          [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
         >
-          Clear Completed
-        </button>
+          <span>{{ (listData.listItems | async)?.length }} items left</span>
+          <ui-button-toggle
+            *ngIf="!isSmallDevice"
+            (radioBtnVal)="taskListFilter($event)"
+            [isLightMode]="isLightMode"
+            [buttonsToggle]="buttonsToggle"
+          ></ui-button-toggle>
+          <button
+            (click)="clearCompleted()"
+            [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+          >
+            Clear Completed
+          </button>
+        </div>
       </div>
-    </div>
-    <ui-button-toggle
-      *ngIf="isSmallDevice"
-      (radioBtnVal)="taskListFilter($event)"
-      [isLightMode]="isLightMode"
-      [buttonsToggle]="buttonsToggle"
-    ></ui-button-toggle>
-    <div>
-      <p
-        class="drop-place"
-        [ngClass]="isLightMode ? 'light-m-clr-400' : null"
-        id="dropPlace"
-      >
-        Drag and drop to reorder list
-      </p>
+      <ui-button-toggle
+        *ngIf="isSmallDevice"
+        (radioBtnVal)="taskListFilter($event)"
+        [isLightMode]="isLightMode"
+        [buttonsToggle]="buttonsToggle"
+      ></ui-button-toggle>
+      <div>
+        <p
+          class="drop-place"
+          [ngClass]="isLightMode ? 'light-m-clr-400' : null"
+          id="dropPlace"
+        >
+          Drag and drop to reorder list
+        </p>
+      </div>
     </div>
   </div>
 </section>
