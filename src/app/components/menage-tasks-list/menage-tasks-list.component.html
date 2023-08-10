@@ -33,7 +33,7 @@
         class="list-counter"
         [ngClass]="isLightMode ? ['light-m-clr-400'] : null"
       >
-        <span>5 items left</span>
+        <span>{{ (listData.listItems | async)?.length }} items left</span>
         <ui-button-toggle
           *ngIf="!isSmallDevice"
           (radioBtnVal)="taskListFilter($event)"

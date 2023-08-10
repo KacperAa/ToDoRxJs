@@ -38,13 +38,13 @@ export class MenageTasksListComponent
   public isLightMode!: boolean;
   public isSmallDevice!: boolean;
   public buttonsToggle: ButtonToggle[] = BUTTONS_TOGGLE;
+  public tasksListLength!: number;
 
   public listData: List = {
     icon: '../../../assets/images/icon-cross.svg',
     alt: 'close icon',
     listItems: null,
   };
-
   public task: Partial<Task> = {};
   private _sub = new Subscription();
 
@@ -79,7 +79,6 @@ export class MenageTasksListComponent
           map(() => this._setErrMess()),
           filter(() => this.input.valid as boolean),
           exhaustMap(() => {
-            this.task.completed = false;
             return this.tasksService.addTask(this.task as Task);
           })
         )
@@ -96,7 +95,10 @@ export class MenageTasksListComponent
         .getTasks()
         .pipe(
           map((tasks: Task[]) => {
-            return tasks.filter((task: Task) => task.completed === false);
+            const filteredTasks: Task[] = tasks.filter(
+              (task: Task) => task.completed === false
+            );
+            return filteredTasks;
           })
         );
       this.listData.listItems = activeTasks$;
@@ -107,7 +109,10 @@ export class MenageTasksListComponent
         .getTasks()
         .pipe(
           map((tasks: Task[]) => {
-            return tasks.filter((task: Task) => task.completed === true);
+            const filteredTasks: Task[] = tasks.filter(
+              (task: Task) => task.completed === true
+            );
+            return filteredTasks;
           })
         );
       this.listData.listItems = activeTasks$;
@@ -120,6 +125,9 @@ export class MenageTasksListComponent
 
   private _getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
+    this.listData.listItems.subscribe((taskList: Task[]) => {
+      this.tasksListLength = taskList.length;
+    });
   }
 
   private _setErrMess(): void {
