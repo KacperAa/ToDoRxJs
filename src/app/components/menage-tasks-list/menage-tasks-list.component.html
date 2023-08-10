@@ -32,7 +32,12 @@
           'box-sh-light-m': isLightMode
         }"
       >
-        <ui-list [isLightMode]="isLightMode" [list]="listData"></ui-list>
+        <ui-list
+          *ngIf="!isFetching"
+          [isLightMode]="isLightMode"
+          [list]="listData"
+        ></ui-list>
+        <p *ngIf="isFetching">loading...</p>
         <div
           class="list-counter"
           [ngClass]="isLightMode ? ['light-m-clr-400'] : null"

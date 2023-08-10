@@ -39,6 +39,7 @@ export class MenageTasksListComponent
   public isSmallDevice!: boolean;
   public buttonsToggle: ButtonToggle[] = BUTTONS_TOGGLE;
   public tasksListLength!: number;
+  public isFetching: boolean = false;
 
   public listData: List = {
     icon: '../../../assets/images/icon-cross.svg',
@@ -76,7 +77,10 @@ export class MenageTasksListComponent
     this._sub.add(
       obsBtn$
         .pipe(
-          map(() => this._setErrMess()),
+          map(() => {
+            this.isFetching = true;
+            this._setErrMess();
+          }),
           filter(() => this.input.valid as boolean),
           exhaustMap(() => {
             return this.tasksService.addTask(this.task as Task);
@@ -85,6 +89,7 @@ export class MenageTasksListComponent
         .subscribe(() => {
           this.form.resetForm();
           this._getTasks();
+          this.isFetching = false;
         })
     );
   }
@@ -144,9 +149,6 @@ export class MenageTasksListComponent
 
   private _getTasks(): void {
     this.listData.listItems = this.tasksService.getTasks();
-    this.listData.listItems.subscribe((taskList: Task[]) => {
-      this.tasksListLength = taskList.length;
-    });
   }
 
   private _setErrMess(): void {
