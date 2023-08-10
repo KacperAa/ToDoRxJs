@@ -19,7 +19,7 @@ section {
     transform: translateY(-15rem);
     z-index: 2;
     display: grid;
-    gap: 2rem;
+    gap: 3rem;
     width: 100%;
     margin-top: 1rem;
     margin-inline: 2rem;
@@ -40,7 +40,7 @@ section {
         padding: 0.5rem;
       }
       input[type="text"]::placeholder {
-        color: colors.$clr-dark-m-400;
+        color: colors.$clr-dark-m-300;
         font-size: 1.25rem;
       }
 
