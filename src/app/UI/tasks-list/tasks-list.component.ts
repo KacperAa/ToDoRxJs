@@ -1,5 +1,19 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
-import { Subject, exhaustMap, map, switchMap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  delayWhen,
+  exhaustMap,
+  map,
+  retryWhen,
+  switchMap,
+  take,
+  tap,
+  throwError,
+  timeout,
+  timer,
+} from 'rxjs';
 import { dragAndDrop } from 'src/app/functions/drag-and-drop.function';
 import { List } from 'src/app/models/list-item.interface';
 import { Task } from 'src/app/models/task.interface';
@@ -18,6 +32,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
   public taskIdDel$ = new Subject<string>();
   public taskIdPatch$ = new Subject<{ checked: boolean; task: Task }>();
   public isFetching: boolean = false;
+  public errorMessage!: string;
 
   constructor(private _tasksService: TasksService) {}
 
@@ -29,7 +44,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit(): void {
     setTimeout(() => {
       dragAndDrop('sortList');
-    }, 1000);
+    }, 2000);
   }
 
   private _patchActiveStatus(): void {
@@ -43,7 +58,11 @@ export class TasksListComponent implements OnInit, AfterViewInit {
           return this._tasksService.patchTask(task);
         })
       )
-      .subscribe();
+      .subscribe({
+        error: (error: Error) => {
+          /*  alert(error.name); */
+        },
+      });
   }
 
   private _deleteTask(): void {
@@ -51,12 +70,22 @@ export class TasksListComponent implements OnInit, AfterViewInit {
       .pipe(
         exhaustMap((taskId: string) => {
           this.isFetching = true;
-          return this._tasksService.deleteTask(taskId);
+          return this._tasksService.deleteTask(taskId).pipe(
+            retryWhen((errors: any) => {
+              return errors.pipe(
+                delayWhen(() => timer(2000)),
+                take(3)
+              );
+            })
+          );
         })
       )
-      .subscribe(() => {
-        this._getTasks();
-        this.isFetching = false;
+      .subscribe({
+        error: (err) => {},
+        complete: () => {
+          this._getTasks();
+          this.isFetching = false;
+        },
       });
   }
 
