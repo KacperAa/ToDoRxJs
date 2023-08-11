@@ -3,8 +3,6 @@ import {
   MonoTypeOperatorFunction,
   Observable,
   Subject,
-  catchError,
-  concatMap,
   delayWhen,
   exhaustMap,
   finalize,
@@ -13,8 +11,6 @@ import {
   switchMap,
   take,
   tap,
-  throwError,
-  timeout,
   timer,
 } from 'rxjs';
 import { dragAndDrop } from 'src/app/functions/drag-and-drop.function';
@@ -35,7 +31,6 @@ export class TasksListComponent implements OnInit, AfterViewInit {
   public taskIdDel$ = new Subject<string>();
   public taskIdPatch$ = new Subject<{ checked: boolean; task: Task }>();
   public isFetching: boolean = false;
-  public errorMessage!: string;
 
   constructor(private _tasksService: TasksService) {}
 
@@ -58,10 +53,12 @@ export class TasksListComponent implements OnInit, AfterViewInit {
           return value.task;
         }),
         switchMap((task: Task) => {
-          return this._tasksService.patchTask(task).pipe(this._menageError());
+          return this._tasksService.patchTask(task);
         })
       )
-      .subscribe();
+      .subscribe(() => {
+        this.isFetching = false;
+      });
   }
 
   private _deleteTask(): void {
@@ -74,12 +71,9 @@ export class TasksListComponent implements OnInit, AfterViewInit {
             .pipe(this._menageError());
         })
       )
-      .subscribe({
-        error: (err) => {},
-        complete: () => {
-          this._getTasks();
-          this.isFetching = false;
-        },
+      .subscribe(() => {
+        this._getTasks();
+        this.isFetching = false;
       });
   }
 
@@ -93,7 +87,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
         take(3),
         finalize(() => {
           this.isFetching = false;
-          this.errorMessage = 'Waiting time exceeded';
+          alert('Waiting time exceeded');
         })
       );
     });
