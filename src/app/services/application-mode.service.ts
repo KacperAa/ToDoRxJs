@@ -1,6 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, delayWhen, map, retryWhen, take, tap, timer } from 'rxjs';
+import {
+  Observable,
+  delayWhen,
+  finalize,
+  map,
+  retryWhen,
+  take,
+  tap,
+  timer,
+} from 'rxjs';
 import { Mode } from '../models/mode.interface';
 
 @Injectable({
@@ -19,8 +28,8 @@ export class ApplicationModeService {
       retryWhen((error: Observable<Error>) => {
         return error.pipe(
           delayWhen(() => timer(2000)),
-          take(4),
-          tap(() => console.log('retrying...'))
+          take(3),
+          finalize(() => alert('Timeout exceeded, check network connection'))
         );
       })
     );
