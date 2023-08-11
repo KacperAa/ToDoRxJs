@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import {
+  MonoTypeOperatorFunction,
   Observable,
   Subject,
   catchError,
+  concatMap,
   delayWhen,
   exhaustMap,
+  finalize,
   map,
   retryWhen,
   switchMap,
@@ -44,7 +47,7 @@ export class TasksListComponent implements OnInit, AfterViewInit {
   public ngAfterViewInit(): void {
     setTimeout(() => {
       dragAndDrop('sortList');
-    }, 2000);
+    }, 3000);
   }
 
   private _patchActiveStatus(): void {
@@ -55,14 +58,10 @@ export class TasksListComponent implements OnInit, AfterViewInit {
           return value.task;
         }),
         switchMap((task: Task) => {
-          return this._tasksService.patchTask(task);
+          return this._tasksService.patchTask(task).pipe(this._menageError());
         })
       )
-      .subscribe({
-        error: (error: Error) => {
-          /*  alert(error.name); */
-        },
-      });
+      .subscribe();
   }
 
   private _deleteTask(): void {
@@ -70,14 +69,9 @@ export class TasksListComponent implements OnInit, AfterViewInit {
       .pipe(
         exhaustMap((taskId: string) => {
           this.isFetching = true;
-          return this._tasksService.deleteTask(taskId).pipe(
-            retryWhen((errors: any) => {
-              return errors.pipe(
-                delayWhen(() => timer(2000)),
-                take(3)
-              );
-            })
-          );
+          return this._tasksService
+            .deleteTask(taskId)
+            .pipe(this._menageError());
         })
       )
       .subscribe({
@@ -87,6 +81,22 @@ export class TasksListComponent implements OnInit, AfterViewInit {
           this.isFetching = false;
         },
       });
+  }
+
+  private _menageError(): MonoTypeOperatorFunction<unknown> {
+    return retryWhen((error: Observable<Error>) => {
+      return error.pipe(
+        delayWhen(() => timer(2000)),
+        tap(() => {
+          console.log('retrying...');
+        }),
+        take(3),
+        finalize(() => {
+          this.isFetching = false;
+          this.errorMessage = 'Waiting time exceeded';
+        })
+      );
+    });
   }
 
   private _getTasks(): void {
